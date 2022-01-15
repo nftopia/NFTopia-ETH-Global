@@ -22,12 +22,12 @@ const validateMessages = {
 	},
 }
 
-const ProposalDetail = () => {
-	
+const ProposalDetail = ({info}) => {
+
 	return (
 		<>
 			<Row>
-				<NFTCarousel />
+				<NFTCarousel source={info.tokens}/>
 			</Row>
 			<Row>
 				<Col span={13}>
@@ -47,15 +47,13 @@ const ProposalDetail = () => {
 					<Row>
 						<Col span={12}>
 							<Card>
-								<Meta title="Novelty Score" description={dummyData.noveltyScore}></Meta>
-							</Card>				
+								<Meta title="Novelty Score" description={info.noveltyScore}></Meta>
+							</Card>
 						</Col>
 						<Col span={12}>
 							<Card>
-								<Meta title="AI Tags" description={dummyData.AITags.map((tag)=> (
-									` ${tag} |`
-								))}></Meta>	
-							</Card>			
+								<Meta title="AI Tags" description={info.aiTag}></Meta>
+							</Card>
 						</Col>
 					</Row>
 					<Row>
@@ -70,7 +68,7 @@ const ProposalDetail = () => {
 							<Card>
 								<Meta title={dummyData.communityInfo.twitterFollower} description="Twitter Followers"></Meta>
 							</Card>
-						</Col>							
+						</Col>
 						<Col>
 							<Card>
 								<Meta title={dummyData.communityInfo.twitterMentions} description="Twitter Mentions"></Meta>
@@ -79,8 +77,8 @@ const ProposalDetail = () => {
 						<Col>
 							<Card>
 								<Meta title={dummyData.communityInfo.discordMembers} description="Discord Members"></Meta>
-							</Card>	
-						</Col>	
+							</Card>
+						</Col>
 					</Row>
 					<Row>
 						<Col span={24}><h1>Key People</h1></Col>
@@ -93,7 +91,7 @@ const ProposalDetail = () => {
 							{dummyData.keyPeople.map((people)=>(
 								<Meta key={people.name} avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />} title={`${people.name}`} />
 							))}
-					
+
 						</Avatar.Group>
 					</Row>
 					<Row>
@@ -123,7 +121,7 @@ const ProposalDetail = () => {
 								<Form.Item>
 									<Rate />
 								</Form.Item>
-								<Form.Item>								
+								<Form.Item>
 									<Input.TextArea placeholder='Leave a Comment'/>
 								</Form.Item>
 								<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
@@ -134,7 +132,7 @@ const ProposalDetail = () => {
 					</Row>
 				</Col>
 			</Row>
-			
+
 		</>
 	)
 }
@@ -174,8 +172,8 @@ const dummyData = {
 			img: 'https://lh3.googleusercontent.com/Alhv4pn_L805OaXdAychKVSm1O6C619mSuNJOtuXRFNfNzHnZ8SJBm2yHAylgfkh4xe-jgZtdCdQI3sxzew6fZGOscbHytW5-EEHLw=w600'
 		}
 	]
-    
-    
+
+
 }
 
 export default ProposalDetail

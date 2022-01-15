@@ -5,20 +5,20 @@ import {
 
 
 const styles = {
-	carousel: { 
-		marginTop: '25px', 
+	carousel: {
+		marginTop: '25px',
 		color: '#494949',
 		width: '100%',
 	}
 }
-const NFTCarousel = () => {
+const NFTCarousel = ({source}) => {
 	const { Item } = List
 
 	return (
 		<div style={styles.carousel}>
 			<List
 				grid={{gutter: 8, column: 5}}
-				dataSource={dummyData}
+				dataSource={source}
 				pagination={{
 					onChange: page => {
 				  console.log(page)
@@ -30,7 +30,7 @@ const NFTCarousel = () => {
 						<Image
 							width={225}
 							height={200}
-							src={item.Image}
+							src={item.image}
 							placeholder={
 								<Image
 									preview={false}

@@ -3,6 +3,10 @@ import StoreContext from '../utils/store'
 import ProposalCard from '../components/Proposal/ProposalCard/ProposalCard'
 import {Row, Col, Tabs } from 'antd'
 import ProposalDetail from '../components/Proposal/ProposalDetail/ProposalDetail'
+import { useProposals } from '../hooks/useProposals'
+import { useProposalDetail } from '../hooks/useProposalDetail'
+import { useMoralis } from 'react-moralis'
+
 
 const { TabPane }  = Tabs
 const styles = {
@@ -40,6 +44,8 @@ const Proposal = () => {
 
 	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
 	const { upcomingProposal, inprogressProposal, endedProposal } = proposalData
+	const { proposalInfo } = useProposalDetail('0x275d553f426355c20b134D944B5b28D31CDb83DA')
+
 	return (
 		<>
 			<div>
@@ -58,9 +64,9 @@ const Proposal = () => {
                     		</TabPane>
                     		<TabPane tab="In Progress" key="2">
                     			<Row gutter={[32, 24]} justify='center'>
-                    				{inprogressProposal.map((proposal)=> (
+														{upcomingProposal.map((proposal)=> (
                     					<Col span={8} key={proposal.title} >
-                    						<ProposalCard title={proposal.title} desc={proposal.desc} img={proposal.img} openProposal={setSelectedProposal} />
+                    						<ProposalCard title={proposal.title} desc={proposal.desc} img={proposal.img} openProposal={setSelectedProposal}/>
                     					</Col>
                     				))}
                     			</Row>
@@ -83,7 +89,7 @@ const Proposal = () => {
 				    <img width="100%" src="/proposalHeader.jpg"></img>
 			        </Row>
                 	<div style={styles.wrapper}>
-                		<ProposalDetail />
+                		<ProposalDetail info={proposalInfo}/>
 
                 	</div>
                 </>
