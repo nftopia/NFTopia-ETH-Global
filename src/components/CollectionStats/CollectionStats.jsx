@@ -1,6 +1,4 @@
-import { Statistic, Card, Row, Col } from 'antd';
-import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
-
+import { Statistic, Card, Row, Col } from 'antd'
 
 function CollectionStats(){
 
