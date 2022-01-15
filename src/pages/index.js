@@ -105,7 +105,7 @@ const Home = () => {
 					/>
 				</Col>
 			</Row>
-			
+
 		</div>
 	)
 }
