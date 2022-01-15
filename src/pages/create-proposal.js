@@ -47,6 +47,16 @@ export default function CreateProposal() {
 
     governorContract.on("ProposalCreated", (proposalId) => {
         console.log("got proposal id: " + proposalId);
+        const Proposal = Moralis.Object.extend("Proposals");
+        const proposal = new Proposal();
+
+        proposal.set("proposal_id", proposalId);
+        proposal.set("proposal_collection", address);
+        proposal.set("proposal_description", description);
+        proposal.set("proposal_state", "");
+        proposal.set("proposal_rating", 0);
+
+        proposal.save();
     });
 
     console.log("end")

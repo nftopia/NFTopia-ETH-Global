@@ -5,7 +5,6 @@ import { useIPFS } from './useIPFS'
 
 export const useNFTBalance = (options) => {
 
-	// console.log("Yuguan starts debugging")
 	const { account } = useMoralisWeb3Api()
 	const { chainId, walletAddress } = useMoralisDapp()
 	const { resolveLink } = useIPFS()

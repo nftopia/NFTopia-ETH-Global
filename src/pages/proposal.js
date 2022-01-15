@@ -3,6 +3,7 @@ import StoreContext from '../utils/store'
 import ProposalCard from '../components/ProposalCard/ProposalCard'
 import {Row, Col, Tabs } from 'antd'
 import ProposalDetail from '../components/ProposalDetail/ProposalDetail'
+import { useProposals } from '../hooks/useProposals'
 
 const { TabPane }  = Tabs
 const styles = {
@@ -33,12 +34,15 @@ const onTabChange = (key) => {
 }
 
 const Proposal = () => {
+
+	const { proposals } = useProposals()
+
 	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
 	const { upcomingProposal, inprogressProposal, endedProposal } = proposalData
 	return (
 		<>
 			<div>
-				{selectedProposal === 'explore' && 
+				{selectedProposal === 'explore' &&
                     <div style={styles.wrapper}>
                     	<div style={styles.title}>Review to Earn</div>
                     	<Tabs style={styles.tab} defaultActiveKey='1' centered onChange={onTabChange}>
@@ -72,10 +76,10 @@ const Proposal = () => {
                     		</TabPane>
                     	</Tabs>
                     </div>}
-				{selectedProposal !== 'explore' && 
+				{selectedProposal !== 'explore' &&
                 <>
                 	<Row>
-				    <img width="100%" src="/proposalHeader.jpg"></img>                
+				    <img width="100%" src="/proposalHeader.jpg"></img>
 			        </Row>
                 	<div style={styles.wrapper}>
                 		<ProposalDetail />
