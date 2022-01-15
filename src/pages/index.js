@@ -1,7 +1,7 @@
 import { Row, Col, Button, List, Image } from 'antd'
 import { useContext } from 'react'
 import StoreContext from '../utils/store'
-import ProposalCard from '../components/ProposalCard/ProposalCard'
+import ProposalCard from '../components/Proposal/ProposalCard/ProposalCard'
 import { getCollectionsByChain } from '../helpers/collections'
 import { useMoralisDapp } from '../providers/MoralisDappProvider/MoralisDappProvider'
 

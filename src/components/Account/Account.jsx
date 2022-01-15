@@ -8,7 +8,6 @@ import { SelectOutlined, WalletOutlined } from '@ant-design/icons'
 import { getExplorer } from '../../helpers/networks'
 import Text from 'antd/lib/typography/Text'
 import { connectors } from './config'
-import Image from 'next/image'
 
 const styles = {
 	account: {
@@ -92,7 +91,7 @@ function Account() {
 									}
 								}}
 							>
-								<Image src={icon} alt={title} className={styles.icon} width='45px' height="45px" />
+								<img src={icon} alt={title} className={styles.icon} width='45px' height="45px" />
 								<Text style={{ fontSize: '14px' }}>{title}</Text>
 							</div>
 						))}

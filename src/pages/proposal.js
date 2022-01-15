@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import StoreContext from '../utils/store'
-import ProposalCard from '../components/ProposalCard/ProposalCard'
+import ProposalCard from '../components/Proposal/ProposalCard/ProposalCard'
 import {Row, Col, Tabs } from 'antd'
-import ProposalDetail from '../components/ProposalDetail/ProposalDetail'
+import ProposalDetail from '../components/Proposal/ProposalDetail/ProposalDetail'
 import { useProposals } from '../hooks/useProposals'
 
 const { TabPane }  = Tabs
@@ -36,7 +36,8 @@ const onTabChange = (key) => {
 const Proposal = () => {
 
 	// eslint-disable-next-line no-unused-vars
-	const { proposals } = useProposals()
+	//TODO: Error: You need to call Parse.initialize before using Parse.
+	// const { proposals } = useProposals()
 
 	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
 	const { upcomingProposal, inprogressProposal, endedProposal } = proposalData

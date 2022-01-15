@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import StoreContext from '../../utils/store'
+import StoreContext from '../../../utils/store'
 import { useRouter } from 'next/router'
 import { Card, Tooltip, Row, Col, Button } from 'antd'
 
