@@ -18,11 +18,7 @@ import { useMoralisDapp } from '../providers/MoralisDappProvider/MoralisDappProv
 import { getExplorer } from '../helpers/networks'
 import { useWeb3ExecuteFunction } from 'react-moralis'
 const { Meta } = Card
-const { TabPane } = Tabs;
-
-function callback(key) {
-  console.log(key);
-}
+const { TabPane } = Tabs
 
 const styles = {
 	NFTs: {
@@ -265,8 +261,8 @@ export default function NFTMarketplace() {
 								</Card>
 							))}
 						</div>
-					: <>
-							<Tabs defaultActiveKey="1" centered onChange={callback}>
+						: <>
+							<Tabs defaultActiveKey="1" centered>
 								<TabPane tab="Items" key="1">
 									<div style={styles.NFTs}>
 										{NFTTokenIds.slice(0, 20).map((nft, index) => (

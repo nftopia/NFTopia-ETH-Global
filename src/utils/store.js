@@ -5,7 +5,7 @@ export const StoreProvider = ({children}) => {
 	const [inputValue, setInputValue] = useState('explore')
 
 	const store = {
-		inputValuePair: [inputValue, setInputValue]
+		inputValuePair: [inputValue, setInputValue],
 	}
 	return <StoreContext.Provider value={store}>
 		{children}

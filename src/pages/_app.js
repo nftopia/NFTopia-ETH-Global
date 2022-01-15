@@ -20,7 +20,7 @@ const styles = {
 		justifyContent: 'center',
 		fontFamily: 'Roboto, sans-serif',
 		color: '#041836',
-		marginTop: '130px',
+		marginTop: '50px',
 		padding: '10px',
 	},
 	header: {
