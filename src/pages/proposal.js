@@ -3,7 +3,6 @@ import StoreContext from '../utils/store'
 import ProposalCard from '../components/Proposal/ProposalCard/ProposalCard'
 import {Row, Col, Tabs } from 'antd'
 import ProposalDetail from '../components/Proposal/ProposalDetail/ProposalDetail'
-import { useProposals } from '../hooks/useProposals'
 
 const { TabPane }  = Tabs
 const styles = {
