@@ -53,6 +53,7 @@ const styles = {
 		height: '40px'
 	}
 }
+// eslint-disable-next-line no-unused-vars
 const ProposalCard = ({title, desc, img, openProposal}) => {
 	// eslint-disable-next-line no-unused-vars
 	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
