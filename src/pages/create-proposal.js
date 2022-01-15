@@ -59,6 +59,7 @@ export default function CreateProposal() {
 		    ethers.utils.formatBytes32String(description)
 		)
 
+		// eslint-disable-next-line no-unused-vars
 		provider.waitForTransaction(proposal_tx.hash).then((receipt) => {
 		  // console.log("proposal id: " + receipt.events[0].args.proposalId)
 		})

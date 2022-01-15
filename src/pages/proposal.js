@@ -35,6 +35,7 @@ const onTabChange = (key) => {
 
 const Proposal = () => {
 
+	// eslint-disable-next-line no-unused-vars
 	const { proposals } = useProposals()
 
 	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
