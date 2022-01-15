@@ -24,7 +24,7 @@ function MenuItems() {
 			defaultSelectedKeys={[pathname]}
 		>
 			<Menu.Item key="/nftMarketplace" onClick={()=> inputValuePair[1]('explore')}>
-				<Link style={{color: 'black'}} href="/"
+				<Link style={{color: 'black'}} href="/explore"
 					className="mr-6 py-4">
             		Explore
 				</Link>

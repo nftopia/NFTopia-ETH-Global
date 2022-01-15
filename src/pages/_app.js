@@ -1,9 +1,8 @@
 import '../styles/globals.css'
 import { Layout, Button } from 'antd'
 import Link from '../components/Link'
-import Chains from '../components/Chains/Chains'
+import Logo from '../components/Logo'
 import Account from '../components/Account/Account'
-import NativeBalance from '../components/NativeBalance'
 import SearchCollections from '../components/SearchCollections'
 import { StoreProvider } from '../utils/store'
 import MenuItems from '../components/MenuItems'
@@ -14,7 +13,7 @@ import '../styles/antd.less'
 import { MoralisProvider } from 'react-moralis'
 import { MoralisDappProvider } from '../providers/MoralisDappProvider/MoralisDappProvider'
 
-const { Header } = Layout
+const { Header, Footer } = Layout
 const styles = {
 	layout: { 
 		height: '100vh', 
@@ -64,6 +63,11 @@ const styles = {
 		border: 'none',
 		fontWeight: 590,
 		fontSize: '16px'
+	},
+	footer: {
+		height: '200px',
+		width: '100%',
+		backgroundColor: 'black'
 	}
 }
 
@@ -103,6 +107,8 @@ function MyApp({ Component, pageProps }) {
 							<div style={styles.content}>
 								<Component {...pageProps} />
 							</div>
+							<Footer style={styles.footer} >
+								</Footer>
 						</StoreProvider>
 					</MoralisDappProvider>
 				</MoralisProvider>
@@ -111,10 +117,4 @@ function MyApp({ Component, pageProps }) {
 		)
 }
 
-export const Logo = () => (
-	<div style={{ display: 'flex', marginLeft: '20px' }}>
-	  <img width="60" height="auto" src="/logo.png" alt=""></img> 
-	</div>
-)
-  
 export default MyApp
