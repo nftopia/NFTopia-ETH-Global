@@ -14,15 +14,27 @@ async function main() {
 	// await hre.run('compile');
 
 	// We get the contract to deploy
-	const NFTMarket = await hre.ethers.getContractFactory('NFTMarket')
-	const nftMarket = await NFTMarket.deploy()
-	await nftMarket.deployed()
-	console.log('NFTMarket deployed to:', nftMarket.address)
+	// const NFTMarket = await hre.ethers.getContractFactory('NFTMarket')
+	// const nftMarket = await NFTMarket.deploy()
+	// // await nftMarket.deployed()
+	// console.log('NFTMarket deployed to:', nftMarket.address)
 
-	const NFT = await hre.ethers.getContractFactory('NFT')
-	const nft = await NFT.deploy(nftMarket.address)
-	await nft.deployed()
-	console.log('NFT deployed to:', nft.address)
+	// const NFT = await hre.ethers.getContractFactory('NFT')
+	// const nft = await NFT.deploy('0x2E6e48483b2479Fb9cF0445C69C537cb9fE37d8C')
+	// await nft.deployed()
+	// console.log('NFT deployed to:', nft.address)
+	//
+	// const VoteToken = await ethers.getContractFactory("PricerToken")
+	// const voteToken = await VoteToken.deploy()
+	// await voteToken.deployed()
+	// const voteTokenAddress = voteToken.address
+	// console.log('vote token deployed to:', voteTokenAddress)
+	//
+	const Governor = await ethers.getContractFactory("PricerGovernor")
+	const governor = await Governor.deploy('0x77c716e37cC4904Ff35312362D667AF08bB6286E')
+	await governor.deployed()
+	const governorAddress = governor.address
+	console.log('governor deployed to:', governorAddress)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

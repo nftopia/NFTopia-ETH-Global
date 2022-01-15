@@ -39,6 +39,11 @@ function MenuItems() {
             		My Page
 				</Link>
 			</Menu.Item>
+			<Menu.Item key="/create-proposal">
+				<Link href="/create-proposal" className="mr-6">
+					CreateProposal
+				</Link>
+			</Menu.Item>
 		</Menu>
 	)
 }

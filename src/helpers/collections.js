@@ -15,12 +15,12 @@ export const networkCollections = {
 	  },
 	  {
 		  image:
-		  'https://umeandthekids.com/wp-content/uploads/2020/12/Why-You-Should-Get-a-Family-Dog-1.jpeg',
-		  name: 'Bin Test',
-		  addrs: '0x6605b607797d0519525cbd4eae6ef1a0770f62b4',
+		  'https://emerging-europe.com/wp-content/uploads/2021/08/nft-1320x742.jpeg',
+		  name: 'NFTopia Membership',
+		  addrs: '0xDa1C6D6b5602e3480D57D0F49f5aEe6007542aA4',
 	  }
 	],
-  
+
 	'0x1': [
 	  {
 			image:
@@ -72,6 +72,5 @@ export const networkCollections = {
 	  },
 	],
 }
-  
+
 export const getCollectionsByChain = (chain) => networkCollections[chain]
-  

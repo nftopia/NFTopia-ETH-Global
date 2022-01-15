@@ -12,6 +12,8 @@ contract NFTMarket is ReentrancyGuard {
 
   address payable owner;
 
+  mapping(address => uint) private ratings;
+
   // TODO - Maybe consider a method to set this value so we can adjust it by sending a trascation to this contract
   uint256 listingPrice = 0.025 ether;
 
@@ -48,6 +50,14 @@ contract NFTMarket is ReentrancyGuard {
     uint256 aiSuggestedLowerBound,
     bool sold
   );
+
+  function updateRating(address nftContract, uint rating) public {
+    ratings[nftContract] = rating;
+  }
+
+  function getRating(address nftContract) public view returns (uint) {
+    return ratings[nftContract];
+  }
 
   function getListingPirce() public view returns (uint256) {
     return listingPrice;
