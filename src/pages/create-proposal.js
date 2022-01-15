@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import Web3Modal from 'web3modal'
-import { useMoralis } from 'react-moralis'
+// import { useMoralis } from 'react-moralis'
 
 
 
@@ -16,7 +16,7 @@ import GovernanceToken from '../../artifacts/contracts/PricerToken.sol/PricerTok
 import Governor from '../../artifacts/contracts/PricerGovernor.sol/PricerGovernor.json'
 
 export default function CreateProposal() {
-  const { web3, Moralis, user } = useMoralis()
+	// const { web3, Moralis, user } = useMoralis()
 	const [formInput, updateFormInput] = useState({ address: '', description: '' })
 	const router = useRouter()
 
@@ -25,57 +25,46 @@ export default function CreateProposal() {
 		const { address, description } = formInput
 		if (!address || !description) return
 
-    const web3Modal = new Web3Modal()
+		const web3Modal = new Web3Modal()
 		const connection = await web3Modal.connect()
 		const provider = new ethers.providers.Web3Provider(connection)
 		const signer = provider.getSigner()
 
-    const governorContract = new ethers.Contract(mumbaiGovernorAddress, Governor.abi, signer)
-    const governanceTokenContract = new ethers.Contract(mumbaiGovernorTokenAddress, GovernanceToken.abi, signer)
-    const marketContract = new ethers.Contract(mumbaiNFTMarketAddress, Market.abi, signer)
+		const governorContract = new ethers.Contract(mumbaiGovernorAddress, Governor.abi, signer)
+		const governanceTokenContract = new ethers.Contract(mumbaiGovernorTokenAddress, GovernanceToken.abi, signer)
+		const marketContract = new ethers.Contract(mumbaiNFTMarketAddress, Market.abi, signer)
 
-    console.log("current weight is: " + await governanceTokenContract.getVotes(signer.getAddress()))
+		console.log('current weight is: ' + await governanceTokenContract.getVotes(signer.getAddress()))
 
-    const calldata = marketContract.interface.encodeFunctionData('updateRating', [mumbaiNFTAddress, 1])
+		const calldata = marketContract.interface.encodeFunctionData('updateRating', [mumbaiNFTAddress, 1])
 
-    const proposal_tx = await governorContract.propose(
-        [mumbaiNFTMarketAddress],
-        [0],
-        [calldata],
-        description
-    );
+		// eslint-disable-next-line no-unused-vars
+		const proposal_tx = await governorContract.propose(
+			[mumbaiNFTMarketAddress],
+			[0],
+			[calldata],
+			description
+		)
 
-    governorContract.on("ProposalCreated", (proposalId) => {
-        console.log("got proposal id: " + proposalId);
-        const Proposal = Moralis.Object.extend("Proposals");
-        const proposal = new Proposal();
 
-        proposal.set("proposal_id", proposalId);
-        proposal.set("proposal_collection", address);
-        proposal.set("proposal_description", description);
-        proposal.set("proposal_state", "");
-        proposal.set("proposal_rating", 0);
+		governorContract.on('ProposalCreated', (proposalId) => {
+			console.log('got proposal id: ' + proposalId)
+		})
 
-        proposal.save();
-    });
+		// eslint-disable-next-line no-unused-vars
+		const proposalId = await governorContract.hashProposal(
+		    [mumbaiNFTMarketAddress],
+		    [0],
+		    [calldata],
+		    ethers.utils.formatBytes32String(description)
+		)
 
-    console.log("end")
-
-    // const proposalId = await governorContract.hashProposal(
-    //     [mumbaiNFTMarketAddress],
-    //     [0],
-    //     [calldata],
-    //     ethers.utils.formatBytes32String(description)
-    // );
-
-    // provider.waitForTransaction(proposal_tx.hash).then((receipt) => {
-    //   // console.log("proposal id: " + receipt.events[0].args.proposalId)
-    //   console.log(receipt)
-    //   console.log("proposal id: " + proposalId)
-    //   console.log("Proposal state: " + governorContract.state("67929189116362849761711444791875284825831083884664372968252207849422980362770"))
-    // });
+		provider.waitForTransaction(proposal_tx.hash).then((receipt) => {
+		  // console.log("proposal id: " + receipt.events[0].args.proposalId)
+		})
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	async function createSale(url) {
 		const web3Modal = new Web3Modal()
 		const connection = await web3Modal.connect()
