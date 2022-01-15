@@ -1,4 +1,4 @@
 export const localNFTAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'
 export const localNFTMarketAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
-export const mumbaiNFTAddress = ''
-export const mumbaiNFTMarketAddress = ''
+export const mumbaiNFTAddress = '0x6605b607797d0519525cbd4eae6ef1a0770f62b4'
+export const mumbaiNFTMarketAddress = '0x3C368B86AF00565Df7a3897Cfa9195B9434A59f9'
