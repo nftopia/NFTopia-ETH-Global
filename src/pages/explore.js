@@ -6,21 +6,12 @@ import {
 	useMoralis,
 	useMoralisQuery,
 } from 'react-moralis'
-import { Card, Image, Tooltip, Modal, Badge, Alert, Spin, Tabs } from 'antd'
+import { Modal, Badge, Alert, Spin } from 'antd'
 import { useNFTTokenIds } from '../hooks/useNFTTokenIds'
-import Reviews from '../components/Reviews'
-
-import {
-	FileSearchOutlined,
-	RightCircleOutlined,
-	ShoppingCartOutlined,
-} from '@ant-design/icons'
+import { CollectionBanner, CollectionCard, CollectionDetail } from '../components/Collection'
 import { useMoralisDapp } from '../providers/MoralisDappProvider/MoralisDappProvider'
-import { getExplorer } from '../helpers/networks'
 import { useWeb3ExecuteFunction } from 'react-moralis'
 import { useCollectionStats } from '../hooks/useCollectionStats'
-const { Meta } = Card
-const { TabPane } = Tabs
 
 const styles = {
 	NFTs: {
@@ -83,8 +74,6 @@ export default function NFTMarketplace() {
 	const contractProcessor = useWeb3ExecuteFunction()
 	const { chainId, marketAddress, contractABI, walletAddress } =
     useMoralisDapp()
-	console.log(marketAddress, 'marketaddress')
-	console.log(walletAddress, 'walletaddress')
 	const nativeName = getNativeByChain(chainId)
 	const contractABIJson = contractABI
 	const { Moralis } = useMoralis()
@@ -141,7 +130,6 @@ export default function NFTMarketplace() {
 
 	const handleBuyClick = (nft) => {
 		setNftToBuy(nft)
-		console.log(nft.image)
 		setVisibility(true)
 	}
 
@@ -212,32 +200,7 @@ export default function NFTMarketplace() {
 								<div style={{ marginBottom: '10px' }}></div>
 							</>
 						)}
-						<div style={styles.banner}>
-							<Image
-								preview={false}
-								src={NFTTokenIds[0]?.image || 'error'}
-								fallback={fallbackImg}
-								alt=""
-								style={styles.logo}
-							/>
-							<div style={styles.text}>
-								<>
-									<div>{`${NFTTokenIds[0]?.name}`}</div>
-									<div
-										style={{
-											fontSize: '15px',
-											color: '#9c9c9c',
-											fontWeight: 'normal',
-										}}
-									>
-                    Collection Size: {`${totalNFTs}`}
-										Owner Count: {stats?.owners}
-										Novelty Score: {stats?.noveltyScore}
-										Community Rating: {stats?.rating}
-									</div>
-								</>
-							</div>
-						</div>
+						<CollectionBanner NFTTokenIds={NFTTokenIds} totalNFTs={totalNFTs} stats={stats} fallbackImg={fallbackImg}/>
 					</>
 				)}
 
@@ -245,81 +208,10 @@ export default function NFTMarketplace() {
 					{inputValue === 'explore' ?
 						<div style={styles.NFTs}>
 							{NFTCollections?.map((nft, index) => (
-								<Card
-									hoverable
-									actions={[
-										<Tooltip title="View Collection" key={index}>
-											<RightCircleOutlined
-												onClick={() => {setInputValue(nft?.addrs)}}
-											/>
-										</Tooltip>,
-									]}
-									style={{ width: 240, border: '2px solid #e7eaf3' }}
-									cover={
-										<Image
-											preview={false}
-											src={nft?.image || 'error'}
-											fallback={fallbackImg}
-											alt=""
-											style={{ height: '240px' }}
-										/>
-									}
-									key={index}
-								>
-									<Meta title={nft.name} />
-								</Card>
+								<CollectionCard key={index} setInputValue={setInputValue} nft={nft} fallbackImg={fallbackImg} />
 							))}
 						</div>
-						: <>
-							<Tabs defaultActiveKey="1" centered>
-								<TabPane tab="Items" key="1">
-									<div style={styles.NFTs}>
-										{NFTTokenIds.slice(0, 20).map((nft, index) => (
-											<Card
-												hoverable
-												actions={[
-													<Tooltip title="View On Blockexplorer" key={index}>
-														<FileSearchOutlined
-															onClick={() =>
-																window.open(
-																	`${getExplorer(chainId)}address/${nft.token_address}`,
-																	'_blank'
-																)
-															}
-														/>
-													</Tooltip>,
-													<Tooltip title="Buy NFT" key={index}>
-														<ShoppingCartOutlined onClick={() => handleBuyClick(nft)} />
-													</Tooltip>,
-												]}
-												style={{ width: 240, border: '2px solid #e7eaf3' }}
-												cover={
-													<Image
-														preview={false}
-														src={nft.image || 'error'}
-														fallback={fallbackImg}
-														alt=""
-														style={{ height: '240px' }}
-													/>
-												}
-												key={index}
-											>
-												{getMarketItem(nft) && (
-													<Badge.Ribbon text="Buy Now" color="green"></Badge.Ribbon>
-												)}
-												<Meta title={nft.name} description={`#${nft.token_id}`} />
-											</Card>
-										))}
-									</div>
-								</TabPane>
-						    <TabPane tab="Reviews" key="2">
-									<Reviews />
-						    </TabPane>
-								<TabPane tab="Activities" key="3">
-									Placeholder for activities
-								</TabPane>
-			  			</Tabs>
-						</>
+						: <CollectionDetail NFTTokenIds={NFTTokenIds} chainId={chainId} handleBuyClick={handleBuyClick} getMarketItem={getMarketItem} fallbackImg={fallbackImg} />
 					}
 				</div>
 

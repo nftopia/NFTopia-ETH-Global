@@ -1,5 +1,5 @@
 import { Row, Card, Col, Avatar, Image, Rate, Button, Form, Input } from 'antd'
-import NFTCarousel from '../../Carousel/NFTCarousel'
+import NFTCarousel from '../../Carousel'
 
 const { Meta } = Card
 const layout = {

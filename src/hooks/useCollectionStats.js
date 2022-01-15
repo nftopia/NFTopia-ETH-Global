@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useMoralisDapp } from '../providers/MoralisDappProvider/MoralisDappProvider'
 import { useEffect, useState } from 'react'
 import { useMoralisWeb3Api, useMoralisWeb3ApiCall } from 'react-moralis'
@@ -15,7 +16,7 @@ export const useCollectionStats = (addr) => {
 	const { chainId } = useMoralisDapp()
 
 	const [totalOwners, setTotalOwners] = useState([])
-  const [stats, setStats] = useState({})
+	const [stats, setStats] = useState({})
 	const {
 		fetch: getTotalOwners,
 		data,
@@ -26,32 +27,30 @@ export const useCollectionStats = (addr) => {
 
 	const [fetchStatsSuccess, setFetchStatsSuccess] = useState(true)
 
-  const noveltyScore = 2.5
+	const noveltyScore = 2.5
 
-
-	console.log(data)
 	// const fetchCollectionStats = async () => ({data, noveltyScore})
-  const fetchCollectionStats = async () => {
+	const fetchCollectionStats = async () => {
 
-      const web3Modal = new Web3Modal()
-      const connection = await web3Modal.connect()
-      const provider = new ethers.providers.Web3Provider(connection)
-      const signer = provider.getSigner()
+		const web3Modal = new Web3Modal()
+		const connection = await web3Modal.connect()
+		const provider = new ethers.providers.Web3Provider(connection)
+		const signer = provider.getSigner()
 
-      const marketContract = new ethers.Contract(mumbaiNFTMarketAddress, Market.abi, signer)
+		const marketContract = new ethers.Contract(mumbaiNFTMarketAddress, Market.abi, signer)
 
-      let rating = await marketContract.getRating(addr)
-      return {data, noveltyScore, rating}
-  }
+		let rating = await marketContract.getRating(addr)
+		return {data, noveltyScore, rating}
+	}
 
 	useEffect(() => {
-    if(addr !== 'explore')
-    {
-      fetchCollectionStats().then(response => {
-        console.log(response)
-        setStats({owners: response.data?.result.length, noveltyScore: response.noveltyScore, rating: response.rating.toNumber()})
-      })
-    }
+		if(addr !== 'explore')
+		{
+			fetchCollectionStats().then(response => {
+				console.log(response)
+				setStats({owners: response.data?.result.length, noveltyScore: response.noveltyScore, rating: response.rating.toNumber()})
+			})
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data, noveltyScore])
 
