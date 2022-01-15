@@ -15,32 +15,28 @@ function MenuItems() {
 			mode="horizontal"
 			style={{
 				display: 'flex',
-				fontSize: '17px',
-				fontWeight: '500',
+				fontSize: '16px',
+				fontWeight: 'bold',
 				width: '100%',
-				justifyContent: 'center',
+				marginLeft: '26.5px',
+				borderBottom: 'none'
 			}}
 			defaultSelectedKeys={[pathname]}
 		>
 			<Menu.Item key="/nftMarketplace" onClick={()=> inputValuePair[1]('explore')}>
-				<Link href="/"
+				<Link style={{color: 'black'}} href="/"
 					className="mr-6 py-4">
             		Explore
 				</Link>
 			</Menu.Item>
 			<Menu.Item key="/create">
-				<Link href="/create-item" className="mr-6">
-            		Create Your NFT
+				<Link style={{color: 'black'}} href="/create-item" className="mr-6">
+            		Create
 				</Link>
 			</Menu.Item>
 			<Menu.Item key="/nftBalance">
-				<Link href="/nft-balance" className="mr-6">
-            		Your Collection
-				</Link>
-			</Menu.Item>
-			<Menu.Item key="/proposal">
-				<Link href="/proposal" className="mr-6">
-					Proposal
+				<Link style={{color: 'black'}} href="/nft-balance" className="mr-6">
+            		My Page
 				</Link>
 			</Menu.Item>
 		</Menu>

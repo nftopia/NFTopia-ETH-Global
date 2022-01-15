@@ -1,14 +1,15 @@
 import { useMoralis } from 'react-moralis'
 import { getEllipsisTxt } from '../../helpers/formatters'
 import Blockie from '../Blockie'
-import { Button, Card, Modal } from 'antd'
+import { Button, Card, Modal, Avatar } from 'antd'
 import { useState } from 'react'
 import Address from '../Address/Address'
-import { SelectOutlined } from '@ant-design/icons'
+import { SelectOutlined, WalletOutlined } from '@ant-design/icons'
 import { getExplorer } from '../../helpers/networks'
 import Text from 'antd/lib/typography/Text'
 import { connectors } from './config'
 import Image from 'next/image'
+
 const styles = {
 	account: {
 		height: '42px',
@@ -59,7 +60,7 @@ function Account() {
 					}
 					}
 				>
-					<p style={styles.text}>Authenticate</p>
+					<Avatar style={{ backgroundColor: 'black', verticalAlign: 'middle', marginBottom: '2.5px' }} size={'large'} icon={<WalletOutlined style={{color: 'white', fontSize: '20px' }}/>} />
 				</div>
 				<Modal
 					visible={isAuthModalVisible}
