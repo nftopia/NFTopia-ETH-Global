@@ -7,7 +7,7 @@ import ProposalDetail from '../components/Proposal/ProposalDetail/ProposalDetail
 const { TabPane }  = Tabs
 const styles = {
 	wrapper: {
-		margin: '90px 140px 0 140px',
+		margin: '114px 140px 90px 140px',
 	},
 	title: {
 		fontSize: '32px',
@@ -80,7 +80,7 @@ const Proposal = () => {
 				{selectedProposal !== 'explore' &&
                 <>
                 	<Row>
-				    <img width="100%" src="/proposalHeader.jpg"></img>
+				    <img width="100%" src="/assets/proposalHeader.jpg"></img>
 			        </Row>
                 	<div style={styles.wrapper}>
                 		<ProposalDetail />

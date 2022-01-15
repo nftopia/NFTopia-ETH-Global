@@ -7,7 +7,8 @@ import { useMoralisDapp } from '../providers/MoralisDappProvider/MoralisDappProv
 
 const styles = {
 	wrapper: {
-		marginTop: '90px',
+		marginTop: '163px',
+		marginBottom: '90px'
 	},
 	banner: {
 		width: '100%',
