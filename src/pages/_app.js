@@ -67,7 +67,8 @@ const styles = {
 	footer: {
 		height: '200px',
 		width: '100%',
-		backgroundColor: 'black'
+		backgroundColor: 'black',
+		textAlign: 'center'
 	}
 }
 
@@ -107,8 +108,9 @@ function MyApp({ Component, pageProps }) {
 							<div style={styles.content}>
 								<Component {...pageProps} />
 							</div>
-							<Footer style={styles.footer} >
-								</Footer>
+							<Footer style={styles.footer}>
+								<img style={{marginTop: '50px'}}width="100px" src="/footerLogo.png" alt=""></img>
+							</Footer>
 						</StoreProvider>
 					</MoralisDappProvider>
 				</MoralisProvider>
