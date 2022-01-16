@@ -1,10 +1,9 @@
 import { useMoralisDapp } from '../providers/MoralisDappProvider/MoralisDappProvider'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMoralisWeb3Api, useMoralisWeb3ApiCall, useMoralis } from 'react-moralis'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
 import { useIPFS } from './useIPFS'
-import StoreContext from '../utils/store'
 
 
 import { mumbaiGovernorAddress } from '../../config'
@@ -12,9 +11,7 @@ import { mumbaiGovernorAddress } from '../../config'
 import Governor from '../../artifacts/contracts/PricerGovernor.sol/PricerGovernor.json'
 
 
-export const useProposalDetail = () => {
-
-	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
+export const useProposalDetail = (addr) => {
 
 	const { token } = useMoralisWeb3Api()
 	const { chainId } = useMoralisDapp()
@@ -30,7 +27,7 @@ export const useProposalDetail = () => {
 		isLoading,
 	} = useMoralisWeb3ApiCall(token.getAllTokenIds, {
 		chain: chainId,
-		address: selectedProposal,
+		address: addr,
 		limit: 10,
 	})
 
@@ -58,9 +55,9 @@ export const useProposalDetail = () => {
 		}
 
 		const query = new Moralis.Query('Collections')
-		query.equalTo('collection_address', selectedProposal)
+		query.equalTo('collection_address', addr)
 		const result = await query.first()
-
+		
 
 		const noveltyScore = result.get('nolvety_score')
 		console.log(noveltyScore)
@@ -100,10 +97,8 @@ export const useProposalDetail = () => {
 	}
 
 	useEffect(() => {
-		console.log(selectedProposal)
-		if(selectedProposal !== 'explore')
+		if(addr !== 'explore')
 		{
-			console.log(selectedProposal, "in")
 			fetchProposalInfo().then(response => {
 				console.log(response)
 				setProposalInfo({
@@ -113,7 +108,7 @@ export const useProposalDetail = () => {
 			})
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data, selectedProposal, isInitialized])
+	}, [data, addr, isInitialized])
 
 	return { proposalInfo, error, isLoading }
 }

@@ -54,7 +54,7 @@ const styles = {
 	}
 }
 // eslint-disable-next-line no-unused-vars
-const ProposalCard = ({title, desc, img, collectionAddr, openProposal}) => {
+const ProposalCard = ({title, desc, img, openProposal}) => {
 	// eslint-disable-next-line no-unused-vars
 	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
 	const [loading, setLoading] = useState(true)
@@ -84,7 +84,7 @@ const ProposalCard = ({title, desc, img, collectionAddr, openProposal}) => {
 					<Tooltip title="Review Collection" key="enter">
 						<Button
 							style={styles.enterButton}
-							type="primary" onClick={() => {openProposal(collectionAddr);router.push('/proposal')}}
+							type="primary" onClick={() => {router.push('/proposal');openProposal(title)}}
 						>Enter</Button>
 					</Tooltip>,
 				]}
@@ -108,7 +108,7 @@ const ProposalCard = ({title, desc, img, collectionAddr, openProposal}) => {
 				</Row>
 				<Row>
 					<div style={styles.desc}>
-						{desc}
+						{'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.'}
 					</div>
 				</Row>
 			</Card>
