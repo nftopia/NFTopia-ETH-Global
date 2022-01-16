@@ -57,7 +57,7 @@ const { Item } = List
 
 const Home = () => {
 	// eslint-disable-next-line no-unused-vars
-	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
+	const { inputProposalPair: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
 	const { chainId } =
     useMoralisDapp()
 

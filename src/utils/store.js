@@ -8,13 +8,11 @@ export const StoreProvider = ({children}) => {
 	const [selectedProposal, setSelectedProposal] = useState('explore')
 
 	const [proposals, setProposals] = useState([])
-	const [proposalInfo, setProposalInfo] = useState({})
 	const { Moralis, isInitialized } = useMoralis()
 
 	const store = {
 		inputValuePair: [inputValue, setInputValue],
-		selectedProposal: [selectedProposal, setSelectedProposal],
-		selectedProposalInfo: [proposalInfo, setProposalInfo],
+		inputProposalPair: [selectedProposal, setSelectedProposal],
 		proposals
 	}
 

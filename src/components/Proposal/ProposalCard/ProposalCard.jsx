@@ -54,22 +54,22 @@ const styles = {
 	}
 }
 // eslint-disable-next-line no-unused-vars
-const ProposalCard = ({title, desc, img, collectionAddr, openProposal}) => {
+const ProposalCard = ({proposoal, openProposal}) => {
 	// eslint-disable-next-line no-unused-vars
-	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
-	const [loading, setLoading] = useState(true)
-	const router = useRouter()
-	useEffect(() => {
-		setSelectedProposal('explore')
-		//TODO: Remove it once have the real data fecthing
-		setTimeout(()=> {
-			setLoading(false)
-		}, 2000)
-	},[])
+	// const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
+	// const [loading, setLoading] = useState(true)
+	// const router = useRouter()
+	// useEffect(() => {
+	// 	setSelectedProposal(collectionAddr)
+	// 	//TODO: Remove it once have the real data fecthing
+	// 	setTimeout(()=> {
+	// 		setLoading(false)
+	// 	}, 2000)
+	// },[])
 
 	return (
 		<>
-			<Card style={styles.card} hoverable={true} loading={loading}
+			<Card style={styles.card} hoverable={true}
 				bodyStyle={
 					styles.cardContent
 				}
@@ -77,21 +77,13 @@ const ProposalCard = ({title, desc, img, collectionAddr, openProposal}) => {
 					<img
 						height="110"
 						alt="example"
-						src={img}
+						src={proposoal?.collection_img}
 					/>
 				}
-				actions={[
-					<Tooltip title="Review Collection" key="enter">
-						<Button
-							style={styles.enterButton}
-							type="primary" onClick={() => {openProposal(collectionAddr);router.push('/proposal')}}
-						>Enter</Button>
-					</Tooltip>,
-				]}
 			>
 				<Row>
 					<Col span={6}>
-						<div style={styles.title}>{title}</div>
+						<div style={styles.title}>{proposoal?.collection_name}</div>
 						<div style={styles.subtitle}>{'9,999 NFTs'}</div>
 					</Col>
 					<Col span={6} offset={12}>
@@ -108,8 +100,13 @@ const ProposalCard = ({title, desc, img, collectionAddr, openProposal}) => {
 				</Row>
 				<Row>
 					<div style={styles.desc}>
-						{desc}
+						{proposoal?.description}
 					</div>
+				</Row>
+				<Row justify='center'>
+					<Button style={styles.button}
+						onClick={() => {openProposal(proposoal?.collection)}}
+					>Enter</Button>
 				</Row>
 			</Card>
 		</>

@@ -43,12 +43,20 @@ const onTabChange = (key) => {
 }
 
 const Proposal = () => {
-
 	// eslint-disable-next-line no-unused-vars
 	//TODO: Error: You need to call Parse.initialize before using Parse.
 	// const { proposals } = useProposals()
 	// const { proposalInfo } = useProposalDetail()
-	const { proposals, selectedProposal: [selectedProposal, setSelectedProposal], selectedProposalInfo: [proposalInfo, setProposalInfo]} = useContext(StoreContext)
+	const { proposals, inputProposalPair: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
+	// console.log('2')
+	// console.log(selectedProposal)
+	// useEffect(() => {
+	// 	//TODO: Remove it once have the real data fecthing
+	// 	setTimeout(()=> {}, 10000)
+	// },[])
+	// console.log('3')
+	// console.log(selectedProposal)
+	const { proposalInfo } = useProposalDetail(selectedProposal)
 	const { upcomingProposal, inprogressProposal, endedProposal } = proposalData
 
 	return (
@@ -60,18 +68,20 @@ const Proposal = () => {
                     	<Tabs style={styles.tab} defaultActiveKey='1' centered onChange={onTabChange}>
                     		<TabPane  tab="Upcoming" key="1">
                     			<Row gutter={[32, 24]} justify='center'>
-                    				{upcomingProposal.map((proposal)=> (
-                    					<Col span={8} key={proposal.title} >
-                    						<ProposalCard title={proposal.title} desc={proposal.desc} img={proposal.img} openProposal={setSelectedProposal}/>
+														{proposals.map((proposal)=> (
+                    					<Col span={8} key={proposal.proposal_id} >
+                    						{/* TODO: Title may not be unique */}
+                    						<ProposalCard proposal={proposal} openProposal={setSelectedProposal}/>
                     					</Col>
                     				))}
                     			</Row>
                     		</TabPane>
                     		<TabPane tab="In Progress" key="2">
                     			<Row gutter={[32, 24]} justify='center'>
-                    				{upcomingProposal.map((proposal)=> (
-                    					<Col span={8} key={proposal.title} >
-                    						<ProposalCard title={proposal.title} desc={proposal.desc} img={proposal.img} openProposal={setSelectedProposal}/>
+														{proposals.map((proposal)=> (
+                    					<Col span={8} key={proposal.proposal_id} >
+                    						{/* TODO: Title may not be unique */}
+                    						<ProposalCard proposal={proposal} openProposal={setSelectedProposal}/>
                     					</Col>
                     				))}
                     			</Row>
@@ -81,7 +91,7 @@ const Proposal = () => {
                     				{proposals.map((proposal)=> (
                     					<Col span={8} key={proposal.proposal_id} >
                     						{/* TODO: Title may not be unique */}
-                    						<ProposalCard title={proposal.collection_name} desc={proposal.description} img={proposal.collection_img} collectionAddr={proposal.collection} openProposal={setSelectedProposal} />
+                    						<ProposalCard proposal={proposal} openProposal={setSelectedProposal}/>
                     					</Col>
                     				))}
                     			</Row>
