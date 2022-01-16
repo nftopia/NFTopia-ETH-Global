@@ -76,7 +76,7 @@ const ProposalCard = ({title, desc, img, openProposal}) => {
 				cover={
 					<img
 						height="110"
-						alt="example"
+						alt="https://nftopia-public.s3.amazonaws.com/demo/image/homePagecollection3.png"
 						src={img}
 					/>
 				}

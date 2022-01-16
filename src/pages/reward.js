@@ -1,4 +1,5 @@
 
+import { useState } from 'react'
 import { Row, Divider, Card, Button, List } from 'antd'
 import RewardCard from '../components/RewardCard/RewardCard'
 
@@ -88,6 +89,7 @@ const styles = {
 }
 
 const Reward = ()=> {
+	const [rewardClaimed, setRewardClaimed] = useState(false)
 	return (
 		<div>
 			<img style={styles.cover} src="/assets/Reward.png" alt=""></img>
@@ -127,8 +129,8 @@ const Reward = ()=> {
 						<div style={styles.scoreBody}>
                             0.21 ETH
 						</div>
-						<Button style={styles.button}>
-                        Claim
+						<Button onClick={()=> setRewardClaimed(!rewardClaimed)} disabled={rewardClaimed} style={styles.button}>
+							{rewardClaimed? 'You are all set!': 'Claim'}
 						</Button>
 					</Card>
 				</Row>

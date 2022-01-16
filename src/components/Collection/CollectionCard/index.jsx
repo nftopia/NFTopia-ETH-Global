@@ -90,19 +90,4 @@ const CollectionCard = ({ setInputValue, nft, fallbackImg}) => {
 	)
 }
 
-const upcomingProposal = [
-	{
-		novelty: '2.5',
-		rating: 0
-	},
-	{
-		novelty: '3.6',
-		rating: 0
-	},
-	{
-		novelty: '2.5',
-		rating: 0
-	},
-]
-
 export default CollectionCard

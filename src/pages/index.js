@@ -100,8 +100,8 @@ const Home = () => {
 									style={styles.collectionItem}
 									height={200}
 									src={item.image}
-									fallback={'/assets/collectionLogo.png'}
-									alt="/assets/collectionLogo.png"
+									fallback={'https://nftopia-public.s3.amazonaws.com/demo/image/collectionLogo.png'}
+									alt=""
 								/>
 							</Item>
 						)}

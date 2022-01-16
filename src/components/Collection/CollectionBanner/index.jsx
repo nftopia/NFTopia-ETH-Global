@@ -1,4 +1,3 @@
-
 import { Image, Row, Divider, Rate } from 'antd'
 
 const styles = {
