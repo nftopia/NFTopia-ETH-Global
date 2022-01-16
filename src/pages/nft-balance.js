@@ -231,8 +231,16 @@ function NFTBalance() {
           				<Image
           					preview={false}
           					src={nft?.image}
-          					alt="https://nftopia-public.s3.amazonaws.com/demo/image/collectionLogo.png"
+          					alt=""
           					style={styles.image}
+							  placeholder={
+          						<Image
+          							preview={false}
+          							src={'/assets/collectionLogo.png'}
+          							width={162}
+									  style={styles.image}
+          						/>
+          					}
           				/>
           			}
           		/>
