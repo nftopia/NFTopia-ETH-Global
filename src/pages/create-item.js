@@ -13,6 +13,13 @@ import {
 import NFT from '../../artifacts/contracts/NFT.sol/NFT.json'
 import Market from '../../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
 
+const styles = {
+	wrapper: {
+		marginTop: '120px',
+		marginBottom: '400px',
+		textAlign: 'center'
+	}
+}
 export default function CreateItem() {
 	const [fileUrl, setFileUrl] = useState(null)
 	const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
@@ -77,8 +84,8 @@ export default function CreateItem() {
 	}
 
 	return (
-		<div className="flex justify-center">
-			<div className="w-1/2 flex flex-col pb-12">
+		<div style={styles.wrapper}>
+			<div>
 				<input
 					placeholder="Asset Name"
 					className="mt-8 border rounded p-4"

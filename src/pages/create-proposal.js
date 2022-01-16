@@ -16,6 +16,15 @@ import Market from '../../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
 import GovernanceToken from '../../artifacts/contracts/PricerToken.sol/PricerToken.json'
 import Governor from '../../artifacts/contracts/PricerGovernor.sol/PricerGovernor.json'
 
+
+const styles = {
+	wrapper: {
+		marginTop: '120px',
+		marginBottom: '400px',
+		textAlign: 'center'
+	}
+}
+
 export default function CreateProposal() {
 	const { web3, Moralis, user } = useMoralis()
 	const [formInput, updateFormInput] = useState({ address: '', description: '' })
@@ -99,19 +108,17 @@ export default function CreateProposal() {
 	}
 
 	return (
-		<div className="flex justify-center">
-			<div className="w-1/2 flex flex-col pb-12">
+		<div style={styles.wrapper}>
+			<div>
 				<input
 					placeholder="Collection address"
-					className="mt-8 border rounded p-4"
 					onChange={e => updateFormInput({ ...formInput, address: e.target.value })}
 				/>
 				<textarea
 					placeholder="Proposal Description"
-					className="mt-2 border rounded p-4"
 					onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
 				/>
-				<button onClick={createCollectionProposal} className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg">
+				<button onClick={createCollectionProposal}>
           Create Proposal
 				</button>
 			</div>

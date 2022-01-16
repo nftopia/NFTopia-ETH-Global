@@ -96,7 +96,7 @@ function MyApp({ Component, pageProps }) {
 											</Link>
 										</Button>
 										<Button style={styles.claimButton}>
-											<Link href="/proposal">
+											<Link href="/reward">
 										Claim Rewards
 											</Link>
 										</Button>
