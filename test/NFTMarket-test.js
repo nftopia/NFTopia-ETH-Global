@@ -86,7 +86,7 @@ describe("NFTMarket", function () {
     await voteToken.transferFrom(owner, accounts[2].address, 2)
     await voteToken.transferFrom(owner, accounts[3].address, 3)
     await voteToken.transferFrom(owner, accounts[4].address, 4)
-    await voteToken.transferFrom(owner, accounts[5].address, 5)
+    await voteToken.transferFrom(owner, accounts[4].address, 5)
     await voteToken.transferFrom(owner, accounts[5].address, 6)
     
     await voteToken.connect(accounts[1]).delegate(accounts[1].address, { from: accounts[1].address });
@@ -120,8 +120,7 @@ describe("NFTMarket", function () {
 
     const targetAddr = marketAddress
 
-    const emptyArr = [];
-    const calldata = market.interface.encodeFunctionData('updateRating', [nftContractAddress, item1.tokenId, emptyArr])
+    const calldata = market.interface.encodeFunctionData('updateRating', [nftContractAddress, 0])
 
     console.log("Block number: " + await ethers.provider.getBlockNumber())
 
@@ -184,6 +183,16 @@ describe("NFTMarket", function () {
 
     const votingResults = await governor.proposalVotes(proposalId)
     console.log("voting results: " + votingResults)
+    
+    // simple version to calculate most votes rating level
+    mostVotes = 0
+    rating = 0
+    votingResults.forEach((n, i) => { 
+      if (mostVotes < votingResults[i]) {
+        mostVotes = votingResults[i]
+        rating = i + 1
+      }
+    });
 
     const descriptionHash = ethers.utils.id("Give a review from 1 star to 5 star");
 
@@ -196,7 +205,7 @@ describe("NFTMarket", function () {
     console.log("Proposal snapshot: " + await governor.proposalSnapshot(proposalId))
     console.log("Proposal deadline: " + await governor.proposalDeadline(proposalId))
 
-    const toExecuteCalldata = market.interface.encodeFunctionData('updateRating', [nftContractAddress, item1.tokenId, votingResults])
+    const toExecuteCalldata = market.interface.encodeFunctionData('updateRating', [nftContractAddress, rating])
 
     const execute_tx = await governor.execute(
         [targetAddr],
@@ -207,6 +216,6 @@ describe("NFTMarket", function () {
 
     item1 = await market.fetchMarketItem(1)
 
-    console.log("Item1's rating is " + await market.getRating(nftContractAddress, 1))
+    console.log("Item1's rating is " + await market.getRating(nftContractAddress))
   });
 });
