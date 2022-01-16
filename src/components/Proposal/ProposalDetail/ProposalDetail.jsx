@@ -12,12 +12,6 @@ import { mumbaiGovernorAddress } from '../../../../config'
 
 import Governor from '../../../../artifacts/contracts/PricerGovernor.sol/PricerGovernor.json'
 
-const { Meta } = Card
-const layout = {
-	labelCol: { span: 8 },
-	wrapperCol: { span: 16 },
-}
-
 const onFinish = (values) => {
 	console.log('finish')
 }
@@ -31,6 +25,120 @@ const validateMessages = {
 	number: {
 		range: '${label} must be between ${min} and ${max}',
 	},
+}
+
+const styles = {
+	statusWrapper: {
+		background:' #F5F5F5',
+		borderRadius: '10px',
+		padding: '12px 16px',
+		width: '100px',
+	},
+	title: {
+		fontWeight: 'bold',
+		fontSize: '32px',
+		lineHeight: '38px',
+		marginBottom: '4px'
+	},
+	subtitle: {
+		fontWeight: '510',
+		fontSzie: '16px',
+		lineHeight: '19px',
+		marginBottom: '47px'
+	},
+	statusPrefix: {
+		fontWeight: '510',
+		fontSize: '14px',
+		lineHeight: '17px',
+	},
+	status: {
+		fontWeight: 'bold',
+		fontSize: '14px',
+		lineHeight: '17px',
+		color: '#27AE60'
+	},
+	card: {
+		textAlign: 'center',
+		borderRadius: '10px',
+		border: '1px solid #E6E8EB',
+		width: '360px',
+		padding: '32px 64px',
+		marginBottom: '32px'
+	},
+	card2: {
+		textAlign: 'center',
+		borderRadius: '10px',
+		border: '1px solid #E6E8EB',
+		height: '121px',
+		padding: '32px 64px',
+		marginBottom: '32px'
+	},
+	cardTitle: {
+		fontWeight: 'bold',
+		fontSize: '18px',
+		lineHeight: '21px',
+		marginBottom: '8px'
+	},
+	cardText1: {
+		fontWeight: '510',
+		fontSize: '40px',
+		lineHeight: '48px',
+		color: '#27AE60'
+	},
+	cardText2: {
+		fontWeight: '510',
+		fontSize: '40px',
+		lineHeight: '48px',
+		color: '#C9C9C9'
+	},
+	cardTagText: {
+		fontWeight: '510',
+		fontSize: '18px',
+		lineHeight: '24px',
+		color: 'black'
+	},
+	section: {
+		fontWeight: 'bold',
+		fontSize: '18px',
+		lineHeight: '21px',
+		marginBottom: '16px'
+	},
+	desc: {
+		fontWeight: '510',
+		fontSize: '16px',
+		lineHeight: '19px',
+		color: 	'#8C939A',
+		marginBottom: '32px'
+	},
+	card2Title: {
+		fontWeight: 'bold',
+		fontSize: '24px',
+		lineHeight: '29px',
+		marginBottom: '5px'
+	},
+	card2Text: {
+		fontWeight: '510',
+		fontSize: '14px',
+		lineHeight: '17px',
+		color: '#8C939A'
+	},
+	form: {
+		textAlign: 'center',
+		backgroundColor: '#CDED4F',
+		padding: '16px',
+		width: '500px',
+	},
+	rate: {
+		color: 'black'
+	},
+	button: {
+		background: 'black',
+		borderRadius: '10px',
+		height: '40px',
+		width: '358px',
+		color: 'white',
+		marginTop: '19px',
+	}
 }
 
 const ProposalDetail = ({info}) => {
@@ -82,93 +190,121 @@ const ProposalDetail = ({info}) => {
 
 	return (
 		<>
-			<Row>
+			<Row justify='center'>
 				<NFTCarousel source={info.tokens}/>
 			</Row>
 			<Row>
 				<Col span={13}>
-					<Row>
-						<Col span={8}>
-							<h1>
+					<Row justify='space-between'>
+						<div>
+							<div style={styles.title}>
 								{info.tokens[0].name}
-							</h1>
-							<h3>
+							</div>
+							<div style={styles.subtitle}>
 								{'0 people have voted'}
-							</h3>
-						</Col>
+							</div>
+						</div>
+						<div>
+							<div style={styles.statusWrapper}>
+								<span style={styles.statusPrefix}>
+									{'Ends in '}
+								</span>
+								<span style={styles.status}>
+									{/* TODO: */}
+									{'36 hours'}
+								</span>
+							</div>
+						</div>
 
 					</Row>
-					<Row>
-						<Col span={12}>
-							<Card>
-								<Meta title="Novelty Score" description={info.noveltyScore}></Meta>
-							</Card>
+					<Row justify='space-between'>
+						<Col span={12} style={styles.card}>
+							<div style={styles.cardTitle}>
+							Novelty Score
+							</div>
+							<div style={styles.cardText1}>
+								<span>{info.noveltyScore}</span><span style={styles.cardText2}>/10</span>
+							</div>
 						</Col>
-						<Col span={12}>
-							<Card>
-								<Meta title="AI Tags" description={info.aiTag}></Meta>
-							</Card>
+						<Col offset={1} span={11} style={styles.card}>
+							<div style={styles.cardTitle}>
+							AI Tags
+							</div>
+							<div style={styles.cardTexcardTagTextt1}>
+								{info.aiTag}
+							</div>
 						</Col>
 					</Row>
 					<Row>
-						<Col span={24}><h1>Description</h1></Col>
-						<Col><h4>
+						<Col span={24}><div style={styles.section}>About</div></Col>
+						<Col><div style={styles.desc}>
+							{/* TODO: */}
 							{dummyData.description}
-						</h4></Col>
+						</div></Col>
 					</Row>
+					<div style={styles.section}>Community</div>
 					<Row>
-						<Col span={24}><h1>Community</h1></Col>
-						<Col>
-							<Card>
-								<Meta title={dummyData.communityInfo.twitterFollower} description="Twitter Followers"></Meta>
-							</Card>
+						<Col span={8} style={styles.card2}>
+							<div style={styles.card2Title}>
+								{dummyData.communityInfo.twitterFollower}
+							</div>
+							<div style={styles.card2Text}>
+								Twitter Followers
+							</div>
 						</Col>
-						<Col>
-							<Card>
-								<Meta title={dummyData.communityInfo.twitterMentions} description="Twitter Mentions"></Meta>
-							</Card>
+						<Col span={8} style={styles.card2}>
+							<div style={styles.card2Title}>
+								{dummyData.communityInfo.twitterMentions}
+							</div>
+							<div style={styles.card2Text}>
+								Twitter Mentions
+							</div>							
 						</Col>
-						<Col>
-							<Card>
-								<Meta title={dummyData.communityInfo.discordMembers} description="Discord Members"></Meta>
-							</Card>
+						<Col span={8} style={styles.card2}>
+							<div style={styles.card2Title}>
+								{dummyData.communityInfo.discordMembers}
+							</div>
+							<div style={styles.card2Text}>
+								Discord Members
+							</div>							
 						</Col>
 					</Row>
-
+					<div style={styles.section}>Similar Collections (with similar tags)</div>
 					<Row>
-						<Col span={24}><h1>Similar Collections (with similar tags)</h1></Col>
 						{dummyData.similarCollections.map((collection)=> (
-							<Image
-								key={collection.name}
-								width={225}
-								height={200}
-								alt=""
-								src={collection.img}
-								placeholder={
-									<Image
-										preview={false}
-										src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-										width={200}
-									/>
-								}
-							/>
+							<div key={collection.name} style={{marginRight: '30px'}}>
+								<Image
+									width={90}
+									height={90}
+									alt="/assets/collectionLogo.png"
+									src={collection.img}
+									placeholder={
+										<Image
+											preview={false}
+											src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+											width={90}
+											height={90}
+										/>
+									}
+								/>
+							</div>
 						))}
 					</Row>
 				</Col>
 				<Col offset={1} span={10}>
 					<Row justify='center'>
-						<Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-							<Card title="My Reviews" style={{ width: 500 }}>
+						<Form name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+							<Card title="My Reviews" style={styles.form}>
 								<Form.Item>
-									<Rate onChange={(value) => {
+									<Rate style={styles.rate} onChange={(value) => {
 						        setCurrentRating(value)
 						      }} value={currentRating}/>
 								</Form.Item>
 								<Form.Item>
-									<Input.TextArea placeholder='Leave a Comment'/>
+									<Input.TextArea rows={6} placeholder='Leave a Comment'/>
 								</Form.Item>
-								<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-									<Button onClick={submitVote} type="primary" htmlType="submit">
+								<Form.Item>
+									<Button onClick={submitVote} style={styles.button} htmlType="submit">
 										Submit
 									</Button>
 								</Form.Item>

@@ -32,7 +32,7 @@ const styles = {
 	},
 	statusWrapper: {
 		background:' #F5F5F5',
-		borderRaduius: '10px',
+		borderRadius: '10px',
 		padding: '12px 16px',
 		width: '100px',
 	},

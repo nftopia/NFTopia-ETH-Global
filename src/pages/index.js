@@ -80,7 +80,7 @@ const Home = () => {
 				</Col>
 				{data.map((item)=> (
 					<Col span={8} key={item.title}>
-						<ProposalCard title={item.title} desc={item.desc} img={item.img} openProposal={setSelectedProposal}/>
+						<ProposalCard title={item.title} desc={item.des} img={item.img} openProposal={setSelectedProposal}/>
 					</Col>
 				))}
 			</Row>
@@ -100,8 +100,8 @@ const Home = () => {
 									style={styles.collectionItem}
 									height={200}
 									src={item.image}
-									fallback={'/assets/nftopiaLogo.png'}
-									alt="/assets/nftopiaLogo.png"
+									fallback={'/assets/collectionLogo.png'}
+									alt="/assets/collectionLogo.png"
 								/>
 							</Item>
 						)}

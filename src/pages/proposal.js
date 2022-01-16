@@ -12,7 +12,12 @@ import { useMoralis } from 'react-moralis'
 const { TabPane }  = Tabs
 const styles = {
 	wrapper: {
-		margin: '114px 140px 90px 140px',
+		margin: '17px 120px 90px 120px',
+	},
+	cover: {
+		height: '350px',
+		width: '100%',
+		marginTop: '60px'
 	},
 	title: {
 		fontSize: '32px',
@@ -86,8 +91,8 @@ const Proposal = () => {
                     </div>}
 				{selectedProposal !== 'explore' &&
                 <>
-                	<Row>
-				    <img width="100%" src="/assets/proposalHeader.jpg"></img>
+                	<Row justify='center'>
+				    	<img style={styles.cover} src="/assets/homepagecollection1.png"></img>
 			        </Row>
                 	<div style={styles.wrapper}>
                 		<ProposalDetail info={proposalInfo}/>

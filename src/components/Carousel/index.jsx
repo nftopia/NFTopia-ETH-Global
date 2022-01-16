@@ -6,9 +6,8 @@ import {
 
 const styles = {
 	carousel: {
-		marginTop: '25px',
-		color: '#494949',
-		width: '100%',
+		marginBottom: '25px',
+		width: '100%'
 	}
 }
 const NFTCarousel = ({source}) => {
@@ -17,19 +16,19 @@ const NFTCarousel = ({source}) => {
 	return (
 		<div style={styles.carousel}>
 			<List
-				grid={{gutter: 8, column: 5}}
+				grid={{gutter: 8, column: 10}}
 				dataSource={source}
 				pagination={{
 					onChange: page => {
 				  console.log(page)
 					},
-					pageSize: 5,
+					pageSize: 8,
 			  }}
 				renderItem={item => (
 					<Item>
 						<Image
-							width={225}
-							height={200}
+							width={162}
+							height={162}
 							src={item.image}
 							placeholder={
 								<Image
