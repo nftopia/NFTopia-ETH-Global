@@ -50,7 +50,7 @@ const Proposal = () => {
 
 	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
 	const { upcomingProposal, inprogressProposal, endedProposal } = proposalData
-	const { proposalInfo } = useProposalDetail('0xDa1C6D6b5602e3480D57D0F49f5aEe6007542aA4')
+	const { proposalInfo } = useProposalDetail('0x275d553f426355c20b134D944B5b28D31CDb83DA')
 
 	return (
 		<>

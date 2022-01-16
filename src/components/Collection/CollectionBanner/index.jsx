@@ -96,7 +96,7 @@ const CollectionBanner = ({NFTTokenIds, totalNFTs, stats, fallbackImg}) => {
 							Community Rating
 						</div>
 						<div style={styles.statsNumber}>
-							<Rate style={styles.rate} disabled defaultValue={4.5} value={5}/>
+							<Rate style={styles.rate} disabled defaultValue={4.5} value={0}/>
 						</div>
 					</div>
 					<Divider style={styles.divider} type="vertical" />
