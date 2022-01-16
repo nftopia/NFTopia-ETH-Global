@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import StoreContext from '../utils/store'
 import ProposalCard from '../components/Proposal/ProposalCard/ProposalCard'
 import {Row, Col, Tabs } from 'antd'
@@ -47,10 +47,9 @@ const Proposal = () => {
 	// eslint-disable-next-line no-unused-vars
 	//TODO: Error: You need to call Parse.initialize before using Parse.
 	// const { proposals } = useProposals()
-
-	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
+	// const { proposalInfo } = useProposalDetail()
+	const { proposals, selectedProposal: [selectedProposal, setSelectedProposal], selectedProposalInfo: [proposalInfo, setProposalInfo]} = useContext(StoreContext)
 	const { upcomingProposal, inprogressProposal, endedProposal } = proposalData
-	const { proposalInfo } = useProposalDetail('0x275d553f426355c20b134D944B5b28D31CDb83DA')
 
 	return (
 		<>
@@ -79,10 +78,10 @@ const Proposal = () => {
                     		</TabPane>
                     		<TabPane tab="Ended" key="3">
                     			<Row gutter={[32, 24]} justify='center'>
-                    				{endedProposal.map((proposal)=> (
-                    					<Col span={8} key={proposal.title} >
+                    				{proposals.map((proposal)=> (
+                    					<Col span={8} key={proposal.proposal_id} >
                     						{/* TODO: Title may not be unique */}
-                    						<ProposalCard title={proposal.title} desc={proposal.desc} img={proposal.img} openProposal={setSelectedProposal} />
+                    						<ProposalCard title={proposal.collection_name} desc={proposal.description} img={proposal.collection_img} collectionAddr={proposal.collection} openProposal={setSelectedProposal} />
                     					</Col>
                     				))}
                     			</Row>

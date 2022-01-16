@@ -1,9 +1,10 @@
 import { useMoralisDapp } from '../providers/MoralisDappProvider/MoralisDappProvider'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useMoralisWeb3Api, useMoralisWeb3ApiCall, useMoralis } from 'react-moralis'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
 import { useIPFS } from './useIPFS'
+import StoreContext from '../utils/store'
 
 
 import { mumbaiGovernorAddress } from '../../config'
@@ -11,7 +12,9 @@ import { mumbaiGovernorAddress } from '../../config'
 import Governor from '../../artifacts/contracts/PricerGovernor.sol/PricerGovernor.json'
 
 
-export const useProposalDetail = (addr) => {
+export const useProposalDetail = () => {
+
+	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
 
 	const { token } = useMoralisWeb3Api()
 	const { chainId } = useMoralisDapp()
@@ -27,7 +30,7 @@ export const useProposalDetail = (addr) => {
 		isLoading,
 	} = useMoralisWeb3ApiCall(token.getAllTokenIds, {
 		chain: chainId,
-		address: addr,
+		address: selectedProposal,
 		limit: 10,
 	})
 
@@ -55,9 +58,9 @@ export const useProposalDetail = (addr) => {
 		}
 
 		const query = new Moralis.Query('Collections')
-		query.equalTo('collection_address', addr)
+		query.equalTo('collection_address', selectedProposal)
 		const result = await query.first()
-		
+
 
 		const noveltyScore = result.get('nolvety_score')
 		console.log(noveltyScore)
@@ -97,8 +100,10 @@ export const useProposalDetail = (addr) => {
 	}
 
 	useEffect(() => {
-		if(addr !== 'explore')
+		console.log(selectedProposal)
+		if(selectedProposal !== 'explore')
 		{
+			console.log(selectedProposal, "in")
 			fetchProposalInfo().then(response => {
 				console.log(response)
 				setProposalInfo({
@@ -108,7 +113,7 @@ export const useProposalDetail = (addr) => {
 			})
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data, addr, isInitialized])
+	}, [data, selectedProposal, isInitialized])
 
 	return { proposalInfo, error, isLoading }
 }
