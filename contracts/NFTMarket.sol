@@ -12,7 +12,8 @@ contract NFTMarket is ReentrancyGuard {
 
   address payable owner;
 
-  mapping(address => uint256) private ratings;
+  // mapping(address => uint256) private ratings;
+  mapping(address => mapping(uint256 => uint256)) public ratings;
 
   // TODO - Maybe consider a method to set this value so we can adjust it by sending a trascation to this contract
   uint256 listingPrice = 0.025 ether;
@@ -51,12 +52,44 @@ contract NFTMarket is ReentrancyGuard {
     bool sold
   );
 
-  function updateRating(address nftContract, uint256 rating) public {
-    ratings[nftContract] = rating;
+  function updateRating(
+    address nftContract,
+    uint256 tokenId,
+    uint256[] memory voteResults
+  ) public {
+    uint256 rating = 0;
+    uint256 mostVotes = 0;
+    bool[5] memory mostVotesRatings = [false, false, false, false, false];
+    // get most votes
+    for (uint256 i = 0; i < voteResults.length; i++) {
+      if (mostVotes < voteResults[i]) mostVotes = voteResults[i];
+    }
+    // label most votes levels
+    for (uint256 i = 0; i < voteResults.length; i++) {
+      if (voteResults[i] == mostVotes) mostVotesRatings[i] = true;
+    }
+    uint256 mostVotesCount = 0;
+    uint256 sumRating = 0;
+    for (uint256 i = 0; i < mostVotesRatings.length; i++) {
+      if (mostVotesRatings[i] == true) {
+        mostVotesCount = mostVotesCount + 1;
+        sumRating = sumRating + (i + 1); // position i stands for [i+1] star rating.
+      }
+    }
+    rating = sumRating / mostVotesCount;
+    ratings[nftContract][tokenId] = rating;
   }
 
-  function getRating(address nftContract) public view returns (uint256) {
-    return ratings[nftContract];
+  // function updateRating(address nftContract, uint256 tokenId, uint256 rating) public {
+  //   ratings[nftContract][tokenId] = rating;
+  // }
+
+  function getRating(address nftContract, uint256 tokenId)
+    public
+    view
+    returns (uint256)
+  {
+    return ratings[nftContract][tokenId];
   }
 
   function getListingPirce() public view returns (uint256) {
