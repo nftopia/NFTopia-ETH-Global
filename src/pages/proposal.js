@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext } from 'react'
 import StoreContext from '../utils/store'
 import ProposalCard from '../components/Proposal/ProposalCard/ProposalCard'
@@ -64,7 +65,7 @@ const Proposal = () => {
                     		</TabPane>
                     		<TabPane tab="In Progress" key="2">
                     			<Row gutter={[32, 24]} justify='center'>
-														{upcomingProposal.map((proposal)=> (
+                    				{upcomingProposal.map((proposal)=> (
                     					<Col span={8} key={proposal.title} >
                     						<ProposalCard title={proposal.title} desc={proposal.desc} img={proposal.img} openProposal={setSelectedProposal}/>
                     					</Col>

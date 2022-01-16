@@ -46,38 +46,4 @@ const NFTCarousel = ({source}) => {
 	)
 }
 
-const dummyData = [
-	{
-		Image: 'https://source.unsplash.com/featured/?macbook'
-	},
-	{
-		Image: 'https://source.unsplash.com/featured/?macbook'
-	},
-	{
-		Image: 'https://source.unsplash.com/featured/?macbook'
-	},
-	{
-		Image: 'https://source.unsplash.com/featured/?macbook'
-	},
-	{
-		Image: 'https://source.unsplash.com/featured/?macbook'
-	},
-	{
-		Image: 'https://source.unsplash.com/featured/?iphone'
-	},
-	{
-		Image: 'https://source.unsplash.com/featured/?iphone'
-	},
-	{
-		Image: 'https://source.unsplash.com/featured/?iphone'
-	},
-	{
-		Image: 'https://source.unsplash.com/featured/?iphone'
-	},
-	{
-		Image: 'https://source.unsplash.com/featured/?iphone'
-	}
-]
-
-
 export default NFTCarousel
