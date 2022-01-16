@@ -1,6 +1,16 @@
 import { Row, Card, Col, Avatar, Image, Rate, Button, Form, Input } from 'antd'
 import NFTCarousel from '../../Carousel'
 
+import { useState } from 'react'
+import { ethers } from 'ethers'
+import { useRouter } from 'next/router'
+import Web3Modal from 'web3modal'
+import { useMoralis } from 'react-moralis'
+
+import { mumbaiGovernorAddress } from '../../config'
+
+import Governor from '../../artifacts/contracts/PricerGovernor.sol/PricerGovernor.json'
+
 const { Meta } = Card
 const layout = {
 	labelCol: { span: 8 },
@@ -20,6 +30,47 @@ const validateMessages = {
 	number: {
 		range: '${label} must be between ${min} and ${max}',
 	},
+}
+
+const [formInput, updateFormInput] = useState({ rating: 0, review: '' })
+const router = useRouter()
+
+
+async function submitVote() {
+
+	const { rating, review } = formInput
+	if (rating === 0) return
+
+	console.log(rating)
+	console.log(review)
+
+	const web3Modal = new Web3Modal()
+	const connection = await web3Modal.connect()
+	const provider = new ethers.providers.Web3Provider(connection)
+	const signer = provider.getSigner()
+
+	const governorContract = new ethers.Contract(mumbaiGovernorAddress, Governor.abi, signer)
+
+	const tx = await governorContract.castVoteWithReason(pid, rating-1, review)
+
+	governorContract.on("VoteCast", (voter, proposalId, support, weight, reason) => {
+			console.log("This voter has voted: " + voter);
+			const Review = Moralis.Object.extend("Reviews");
+			const review = new Review();
+
+			review.set("proposal_id", proposalId);
+			review.set("voter", voter);
+			review.set("rating", support+1);
+			review.set("weight", weight);
+			review.set("review", reason);
+
+			review.save();
+			console.log("Back to home page")
+
+			router.push('/')
+	});
+
+	console.log("end")
 }
 
 const ProposalDetail = ({info}) => {
@@ -125,7 +176,9 @@ const ProposalDetail = ({info}) => {
 									<Input.TextArea placeholder='Leave a Comment'/>
 								</Form.Item>
 								<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-									<Button type="primary" htmlType="submit">Submit</Button>
+									<Button onClick={submitVote} type="primary" htmlType="submit">
+										Submit
+									</Button>
 								</Form.Item>
 							</Card>
 						</Form>
