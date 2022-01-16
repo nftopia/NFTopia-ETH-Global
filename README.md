@@ -80,3 +80,25 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+# AI Model
+
+* AWS SageMaker Endpoint arn
+
+  ```commandline
+  arn:aws:sagemaker:us-east-1:312056483702:endpoint/pricer-img-tagger-nfthack-2022-ep
+  ```
+  The AI model is hosted on this endpoint from which you can make requests.
+
+* AWS Lambda
+  
+  * Lambda arn  
+    ```commandline
+    arn:aws:lambda:us-east-1:312056483702:function:PricerModelPiFunction
+    ```
+
+  * REST API Link
+
+    https://8ullfm1gc8.execute-api.us-east-1.amazonaws.com/default
+  
+    We use AWS Lambda to call the SageMaker endpoint for inference requests. 
+    This is triggered with a REST API in the AWS API Gateway.
