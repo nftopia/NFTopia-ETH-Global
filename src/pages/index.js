@@ -126,7 +126,7 @@ const data = [
 	{
 		title: 'Proposal 3',
 		des: 'Proposal 1 Desc',
-		img: 'https://nftopia-public.s3.amazonaws.com/demo/image/collectionLogo.png'
+		img: '/assets//homepagecollection1.png'
 	},
 ]
 
