@@ -15,15 +15,19 @@ abstract contract GovernorCountingNFTopia is Governor {
    * @dev Supported vote types. Matches Governor Bravo ordering.
    */
   enum VoteType {
-    Against,
-    For,
-    Abstain
+    OneStar,
+    TwoStar,
+    ThreeStar,
+    FourStar,
+    FiveStar
   }
 
   struct ProposalVote {
-    uint256 againstVotes;
-    uint256 forVotes;
-    uint256 abstainVotes;
+    uint256 oneStarVotes;
+    uint256 twoStarVotes;
+    uint256 threeStarVotes;
+    uint256 fourStarVotes;
+    uint256 fiveStarVotes;
     mapping(address => bool) hasVoted;
   }
 
@@ -40,7 +44,7 @@ abstract contract GovernorCountingNFTopia is Governor {
     override
     returns (string memory)
   {
-    return 'support=bravo&quorum=for,abstain';
+    return 'support=custom&quorum=oneStar,twoStar,threeStar,fourStar,fiveStar';
   }
 
   /**
@@ -64,16 +68,20 @@ abstract contract GovernorCountingNFTopia is Governor {
     view
     virtual
     returns (
-      uint256 againstVotes,
-      uint256 forVotes,
-      uint256 abstainVotes
+      uint256 oneStarVotes,
+      uint256 twoStarVotes,
+      uint256 threeStarVotes,
+      uint256 fourStarVotes,
+      uint256 fiveStarVotes
     )
   {
     ProposalVote storage proposalvote = _proposalVotes[proposalId];
     return (
-      proposalvote.againstVotes,
-      proposalvote.forVotes,
-      proposalvote.abstainVotes
+      proposalvote.oneStarVotes,
+      proposalvote.twoStarVotes,
+      proposalvote.threeStarVotes,
+      proposalvote.fourStarVotes,
+      proposalvote.fiveStarVotes
     );
   }
 
@@ -89,13 +97,13 @@ abstract contract GovernorCountingNFTopia is Governor {
   {
     ProposalVote storage proposalvote = _proposalVotes[proposalId];
 
-    return
-      quorum(proposalSnapshot(proposalId)) <=
-      proposalvote.forVotes + proposalvote.abstainVotes;
+    // quorum(proposalSnapshot(proposalId)) <=
+    // proposalvote.forVotes + proposalvote.abstainVotes;
+    return true;
   }
 
   /**
-   * @dev See {Governor-_voteSucceeded}. In this module, the forVotes must be strictly over the againstVotes.
+   * @dev See {Governor-_voteSucceeded}.
    */
   function _voteSucceeded(uint256 proposalId)
     internal
@@ -106,7 +114,8 @@ abstract contract GovernorCountingNFTopia is Governor {
   {
     ProposalVote storage proposalvote = _proposalVotes[proposalId];
 
-    return proposalvote.forVotes > proposalvote.againstVotes;
+    // always Succeeded
+    return true;
   }
 
   /**
@@ -122,18 +131,22 @@ abstract contract GovernorCountingNFTopia is Governor {
 
     require(
       !proposalvote.hasVoted[account],
-      'GovernorVotingSimple: vote already cast'
+      'GovernorVotingCountingNFT: vote already cast'
     );
     proposalvote.hasVoted[account] = true;
 
-    if (support == uint8(VoteType.Against)) {
-      proposalvote.againstVotes += weight;
-    } else if (support == uint8(VoteType.For)) {
-      proposalvote.forVotes += weight;
-    } else if (support == uint8(VoteType.Abstain)) {
-      proposalvote.abstainVotes += weight;
+    if (support == uint8(VoteType.OneStar)) {
+      proposalvote.oneStarVotes += weight;
+    } else if (support == uint8(VoteType.TwoStar)) {
+      proposalvote.twoStarVotes += weight;
+    } else if (support == uint8(VoteType.ThreeStar)) {
+      proposalvote.threeStarVotes += weight;
+    } else if (support == uint8(VoteType.FourStar)) {
+      proposalvote.fourStarVotes += weight;
+    } else if (support == uint8(VoteType.FiveStar)) {
+      proposalvote.fiveStarVotes += weight;
     } else {
-      revert('GovernorVotingSimple: invalid value for enum VoteType');
+      revert('GovernorVotingCountingNFT: invalid value for enum VoteType');
     }
   }
 }

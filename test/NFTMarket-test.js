@@ -65,7 +65,7 @@ describe("NFTMarket", function () {
     console.log("NFTopia721 vote token onwer address: " + voteTokenAddress)
     
     const Governor = await ethers.getContractFactory("NFTopiaGovernor")
-    const governor = await Governor.deploy("NFTopiaGovernor", voteToken.address, 0, 5, 60)
+    const governor = await Governor.deploy("NFTopiaGovernor", voteToken.address, 0, 7, 0)
     await governor.deployed()
     const governorAddress = governor.address
 
@@ -78,27 +78,35 @@ describe("NFTMarket", function () {
     await voteToken.mint(owner, 1)
     await voteToken.mint(owner, 2)
     await voteToken.mint(owner, 3)
+    await voteToken.mint(owner, 4)
+    await voteToken.mint(owner, 5)
+    await voteToken.mint(owner, 6)
 
     await voteToken.transferFrom(owner, accounts[1].address, 1)
-    await voteToken.transferFrom(owner, accounts[1].address, 3)
     await voteToken.transferFrom(owner, accounts[2].address, 2)
+    await voteToken.transferFrom(owner, accounts[3].address, 3)
+    await voteToken.transferFrom(owner, accounts[4].address, 4)
+    await voteToken.transferFrom(owner, accounts[5].address, 5)
+    await voteToken.transferFrom(owner, accounts[5].address, 6)
     
     await voteToken.connect(accounts[1]).delegate(accounts[1].address, { from: accounts[1].address });
     await voteToken.connect(accounts[2]).delegate(accounts[2].address, { from: accounts[2].address });
+    await voteToken.connect(accounts[3]).delegate(accounts[3].address, { from: accounts[3].address });
+    await voteToken.connect(accounts[4]).delegate(accounts[4].address, { from: accounts[4].address });
+    await voteToken.connect(accounts[5]).delegate(accounts[5].address, { from: accounts[5].address });
 
     const balance0 = await voteToken.balanceOf(accounts[1].address)
     console.log("account[1] address: " + accounts[1].address)
-    console.log("account[1]balance of pricer token: " + balance0)
+    console.log("account[1] balance of pricer token: " + balance0)
 
-    const balance1 = await voteToken.balanceOf(accounts[2].address)
-    console.log("account[2] address: " + accounts[2].address)
-    console.log("account[2]balance of pricer token: " + balance1)
+    const balance1 = await voteToken.balanceOf(accounts[5].address)
+    console.log("account[5] address: " + accounts[5].address)
+    console.log("account[5] balance of pricer token: " + balance1)
 
     let listingPrice = await market.getListingPirce()
     listingPrice = listingPrice.toString()
     console.log("listingPrice is: " + listingPrice)
     const auctionPrice = ethers.utils.parseUnits('100', 'ether')
-    let daoSuggestedPrice = ethers.utils.parseUnits('30', 'ether')
 
     await market.createMarketItem(nftContractAddress, 1, auctionPrice, { value: listingPrice })
     await market.createMarketItem(nftContractAddress, 2, auctionPrice, { value: listingPrice })
@@ -106,17 +114,14 @@ describe("NFTMarket", function () {
     let item1 = await market.fetchMarketItem(1)
     let item2 = await market.fetchMarketItem(2)
 
-    console.log("First item's current DAO suggested price is: " + item1.daoSuggestedPrice.toString())
-    console.log("Second item's current DAO suggested price is: " + item2.daoSuggestedPrice.toString())
-    console.log("Block number: " + await ethers.provider.getBlockNumber())
-
     console.log("Account[1] weight is: " + await voteToken.getVotes(accounts[1].address))
-    console.log("Account[2] weight is: " + await voteToken.getVotes(accounts[2].address))
+    console.log("Account[5] weight is: " + await voteToken.getVotes(accounts[5].address))
     console.log("Block number: " + await ethers.provider.getBlockNumber())
 
     const targetAddr = marketAddress
 
-    const calldata = market.interface.encodeFunctionData('updateSuggestedPrice', [1, daoSuggestedPrice])
+    const emptyArr = [];
+    const calldata = market.interface.encodeFunctionData('updateRating', [nftContractAddress, item1.tokenId, emptyArr])
 
     console.log("Block number: " + await ethers.provider.getBlockNumber())
 
@@ -124,7 +129,7 @@ describe("NFTMarket", function () {
         [targetAddr],
         [0],
         [calldata],
-        "set dao suggested price for item 1"
+        "Give a review from 1 star to 5 star"
     );
 
     console.log("Block number: " + await ethers.provider.getBlockNumber())
@@ -144,14 +149,24 @@ describe("NFTMarket", function () {
 
     console.log("Before - account[1] has voted: " + await governor.hasVoted(proposalId, accounts[1].address))
     console.log("Before - account[2] has voted: " + await governor.hasVoted(proposalId, accounts[2].address))
+    console.log("Before - account[3] has voted: " + await governor.hasVoted(proposalId, accounts[3].address))
+    console.log("Before - account[4] has voted: " + await governor.hasVoted(proposalId, accounts[4].address))
+    console.log("Before - account[5] has voted: " + await governor.hasVoted(proposalId, accounts[5].address))
 
     console.log("Block number: " + await ethers.provider.getBlockNumber())
 
-    const cast_vote_tx1 = await governor.connect(accounts[1]).castVoteWithReason(proposalId, 1, "cause i dislike it")
-    const cast_vote_tx2 = await governor.connect(accounts[2]).castVoteWithReason(proposalId, 0, "cause i like it")
+    // accounts voting
+    const cast_vote_tx1 = await governor.connect(accounts[1]).castVoteWithReason(proposalId, 0, "It's 1 star")
+    const cast_vote_tx2 = await governor.connect(accounts[2]).castVoteWithReason(proposalId, 1, "It's 2 star")
+    const cast_vote_tx3 = await governor.connect(accounts[3]).castVoteWithReason(proposalId, 2, "It's 3 star")
+    const cast_vote_tx4 = await governor.connect(accounts[4]).castVoteWithReason(proposalId, 3, "It's 4 star")
+    const cast_vote_tx5 = await governor.connect(accounts[5]).castVoteWithReason(proposalId, 4, "It's 5 star")
 
     const voteReceipt1 = await cast_vote_tx1.wait()
     const voteReceipt2 = await cast_vote_tx2.wait()
+    const voteReceipt3 = await cast_vote_tx3.wait()
+    const voteReceipt4 = await cast_vote_tx4.wait()
+    const voteReceipt5 = await cast_vote_tx5.wait()
 
     await nft.createToken("https://www.test.com/tok4")
     // console.log("address 0 vote receipt")
@@ -163,13 +178,14 @@ describe("NFTMarket", function () {
 
     console.log("After - account[1] has voted: " + await governor.hasVoted(proposalId, accounts[1].address))
     console.log("After - account[2] has voted: " + await governor.hasVoted(proposalId, accounts[2].address))
+    console.log("After - account[3] has voted: " + await governor.hasVoted(proposalId, accounts[3].address))
+    console.log("After - account[4] has voted: " + await governor.hasVoted(proposalId, accounts[4].address))
+    console.log("After - account[5] has voted: " + await governor.hasVoted(proposalId, accounts[5].address))
 
-    const result = await governor.proposalVotes(proposalId)
-    console.log("voting result: " + result)
+    const votingResults = await governor.proposalVotes(proposalId)
+    console.log("voting results: " + votingResults)
 
-    const descriptionHash = ethers.utils.id("set dao suggested price for item 1");
-    daoSuggestedPrice = ethers.utils.parseUnits('60', 'ether')
-    const newCalldata = market.interface.encodeFunctionData('updateSuggestedPrice', [1, daoSuggestedPrice])
+    const descriptionHash = ethers.utils.id("Give a review from 1 star to 5 star");
 
     // TODO: use ethers provider to mine blocks instead of creating a token
     await nft.createToken("https://www.test.com/tok5")
@@ -180,16 +196,17 @@ describe("NFTMarket", function () {
     console.log("Proposal snapshot: " + await governor.proposalSnapshot(proposalId))
     console.log("Proposal deadline: " + await governor.proposalDeadline(proposalId))
 
+    const toExecuteCalldata = market.interface.encodeFunctionData('updateRating', [nftContractAddress, item1.tokenId, votingResults])
+
     const execute_tx = await governor.execute(
         [targetAddr],
         [0],
-        [newCalldata],
+        [toExecuteCalldata],
         descriptionHash
     );
 
     item1 = await market.fetchMarketItem(1)
-    item2 = await market.fetchMarketItem(2)
-    console.log("First item's current DAO suggested price is: " + item1.daoSuggestedPrice.toString())
-    console.log("Second item's current DAO suggested price is: " + item2.daoSuggestedPrice.toString())
+
+    console.log("Item1's rating is " + await market.getRating(nftContractAddress, 1))
   });
 });

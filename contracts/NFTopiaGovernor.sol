@@ -4,14 +4,14 @@ pragma solidity ^0.8.0;
 
 import './governance/extensions/GovernorProposalThreshold.sol';
 import './governance/extensions/GovernorSettings.sol';
-import './governance/extensions/GovernorCountingSimple.sol';
+import './governance/extensions/GovernorCountingNFTopia.sol';
 import './governance/extensions/GovernorVotesQuorumFraction.sol';
 
 contract NFTopiaGovernor is
   GovernorProposalThreshold,
   GovernorSettings,
   GovernorVotesQuorumFraction,
-  GovernorCountingSimple
+  GovernorCountingNFTopia
 {
   constructor(
     string memory name_,
