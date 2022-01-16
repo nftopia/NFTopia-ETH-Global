@@ -39,7 +39,7 @@ export const useCollectionStats = (addr) => {
 
 		const marketContract = new ethers.Contract(mumbaiNFTMarketAddress, Market.abi, signer)
 
-		let rating = await marketContract.getRating(addr)
+		const rating = await marketContract.getRating(addr)
 		return {data, noveltyScore, rating}
 	}
 

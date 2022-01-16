@@ -24,7 +24,6 @@ const styles = {
 		justifyContent: 'center',
 		fontFamily: 'SF Pro',
 		color: '#041836',
-		marginTop: '50px',
 	},
 	header: {
 		position: 'fixed',
@@ -65,7 +64,7 @@ const styles = {
 		fontSize: '16px'
 	},
 	footer: {
-		height: '200px',
+		height: '446px',
 		width: '100%',
 		backgroundColor: 'black',
 		textAlign: 'center'
@@ -81,41 +80,42 @@ function MyApp({ Component, pageProps }) {
 	//Validate
 	if (isServerInfo)
 		return (
-			<Layout style={styles.layout}>
-				<MoralisProvider appId={APP_ID} serverUrl={SERVER_URL}>
-					<MoralisDappProvider>
-						<StoreProvider>
-							<Header style={styles.header}>
-								<Logo />
-								<SearchCollections />
-								<MenuItems />
-								<div style={styles.headerRight}>
-									<Button style={styles.reviewButton}>
-										<Link href="/proposal">
+			<>
+				<Layout style={styles.layout}>
+					<MoralisProvider appId={APP_ID} serverUrl={SERVER_URL}>
+						<MoralisDappProvider>
+							<StoreProvider>
+								<Header style={styles.header}>
+									<Logo />
+									<SearchCollections />
+									<MenuItems />
+									<div style={styles.headerRight}>
+										<Button style={styles.reviewButton}>
+											<Link href="/proposal">
 										Review to Earn
-										</Link>
-									</Button>
-									<Button style={styles.claimButton}>
-										<Link href="/proposal">
+											</Link>
+										</Button>
+										<Button style={styles.claimButton}>
+											<Link href="/proposal">
 										Claim Rewards
-										</Link>
-									</Button>
-									{/* <Chains /> */}
-									{/* <NativeBalance /> */}
-									<Account />
+											</Link>
+										</Button>
+										{/* <Chains /> */}
+										{/* <NativeBalance /> */}
+										<Account />
+									</div>
+								</Header>
+								<div style={styles.content}>
+									<Component {...pageProps} />
 								</div>
-							</Header>
-							<div style={styles.content}>
-								<Component {...pageProps} />
-							</div>
-							<Footer style={styles.footer}>
-								<img style={{marginTop: '50px'}}width="100px" src="/footerLogo.png" alt=""></img>
-							</Footer>
-						</StoreProvider>
-					</MoralisDappProvider>
-				</MoralisProvider>
-			</Layout>
-
+							</StoreProvider>
+						</MoralisDappProvider>
+					</MoralisProvider>
+					<Footer style={styles.footer}>
+						<img style={{marginTop: '50px'}}width="100px" src="/footerLogo.png" alt=""></img>
+					</Footer>
+				</Layout>
+			</>
 		)
 }
 

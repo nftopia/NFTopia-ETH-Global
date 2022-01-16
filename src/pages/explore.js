@@ -6,7 +6,7 @@ import {
 	useMoralis,
 	useMoralisQuery,
 } from 'react-moralis'
-import { Modal, Badge, Alert, Spin } from 'antd'
+import { Modal, Badge, Alert, Spin, Row, Col, Tabs} from 'antd'
 import { useNFTTokenIds } from '../hooks/useNFTTokenIds'
 import { CollectionBanner, CollectionCard, CollectionDetail } from '../components/Collection'
 import { useMoralisDapp } from '../providers/MoralisDappProvider/MoralisDappProvider'
@@ -14,41 +14,28 @@ import { useWeb3ExecuteFunction } from 'react-moralis'
 import { useCollectionStats } from '../hooks/useCollectionStats'
 
 const styles = {
+	wrapper: {
+		textAlgin: 'center',
+		margin: '0px 120px 30px 120px',
+	},
+	title: {
+		fontSize: '32px',
+		fontWeight: '700',
+		lineHeight: '38px',
+		color: 'black',
+		textAlign: 'center',
+		marginBottom: '32px'
+	},
+	cover: {
+		height: '350px',
+		width: '100%'
+	},
 	NFTs: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		WebkitBoxPack: 'start',
-		justifyContent: 'flex-start',
-		margin: '0 auto',
-		maxWidth: '1000px',
-		gap: '10px',
-	},
-	banner: {
-		display: 'flex',
-		justifyContent: 'space-evenly',
-		alignItems: 'center',
-		margin: '0 auto',
-		width: '600px',
-		//borderRadius: "10px",
-		height: '150px',
-		marginBottom: '40px',
-		paddingBottom: '20px',
-		borderBottom: 'solid 1px #e3e3e3',
-	},
-	logo: {
-		height: '115px',
-		width: '115px',
-		borderRadius: '50%',
-		// positon: "relative",
-		// marginTop: "-80px",
-		border: 'solid 4px white',
-	},
-	text: {
-		color: '#041836',
-		fontSize: '27px',
-		fontWeight: 'bold',
-	},
+		marginTop: '12px'
+	}
 }
+
+const { TabPane } = Tabs
 
 export default function NFTMarketplace() {
 
@@ -200,17 +187,38 @@ export default function NFTMarketplace() {
 								<div style={{ marginBottom: '10px' }}></div>
 							</>
 						)}
-						<CollectionBanner NFTTokenIds={NFTTokenIds} totalNFTs={totalNFTs} stats={stats} fallbackImg={fallbackImg}/>
+						<img style={styles.cover} src="/assets/collectionCover.png"></img>
+						<div style={styles.wrapper}>
+							<CollectionBanner NFTTokenIds={NFTTokenIds} totalNFTs={totalNFTs} stats={stats} fallbackImg={fallbackImg}/>
+						</div>
 					</>
 				)}
 
-				<div>
+				<div style={styles.wrapper}>
 					{inputValue === 'explore' ?
-						<div style={styles.NFTs}>
-							{NFTCollections?.map((nft, index) => (
-								<CollectionCard key={index} setInputValue={setInputValue} nft={nft} fallbackImg={fallbackImg} />
-							))}
-						</div>
+						<>
+							<div style={styles.title}>Review to Earn</div>
+							<Tabs defaultActiveKey='1' centered>
+								<TabPane tab="Trending" key="1">
+									<Row style={styles.NFTs}>
+										{NFTCollections?.map((nft, index) => (
+											<Col span={6} key={index}>
+												<CollectionCard setInputValue={setInputValue} nft={nft} fallbackImg={fallbackImg} />
+											</Col>
+										))}
+									</Row>
+								</TabPane>
+								<TabPane tab="Top" key="2">
+									Coming Soon
+								</TabPane>
+								<TabPane tab="Art" key="3">
+									Coming Soon
+								</TabPane>
+								<TabPane tab="Collectibles" key="4">
+									Coming Soon
+								</TabPane>
+							</Tabs>
+						</>
 						: <CollectionDetail NFTTokenIds={NFTTokenIds} chainId={chainId} handleBuyClick={handleBuyClick} getMarketItem={getMarketItem} fallbackImg={fallbackImg} />
 					}
 				</div>

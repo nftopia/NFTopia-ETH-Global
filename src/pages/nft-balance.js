@@ -9,15 +9,7 @@ import { useWeb3ExecuteFunction } from 'react-moralis'
 const { Meta } = Card
 
 const styles = {
-	NFTs: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		WebkitBoxPack: 'start',
-		justifyContent: 'flex-start',
-		margin: '0 auto',
-		maxWidth: '1000px',
-		gap: '10px',
-	},
+
 }
 
 function NFTBalance() {
