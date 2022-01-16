@@ -1,5 +1,5 @@
 
-import { Row, Col, Divider, Card, Button, List } from 'antd'
+import { Row, Divider, Card, Button, List } from 'antd'
 import RewardCard from '../components/RewardCard/RewardCard'
 
 const styles = {
@@ -10,9 +10,10 @@ const styles = {
 	cover: {
 		marginTop: '63px',
 		height: '350px',
-		width: '100%'
+		width: '100%',
 	},
 	title: {
+		marginTop: '64px',
 		fontSize: '32px',
 		fontWeight: '700',
 		lineHeight: '38px',
