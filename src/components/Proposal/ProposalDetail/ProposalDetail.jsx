@@ -138,6 +138,14 @@ const styles = {
 		width: '358px',
 		color: 'white',
 		marginTop: '19px',
+	},
+	disabledbutton:{
+		background: 'grey',
+		borderRadius: '10px',
+		height: '40px',
+		width: '358px',
+		color: 'black',
+		marginTop: '19px',
 	}
 }
 
@@ -145,6 +153,7 @@ const ProposalDetail = ({info}) => {
 
 	const [currentRating, setCurrentRating] = useState(0)
 	const [currentReview, setCurrentReview] = useState('review to earn is pretty awesome!')
+	const [reviewPosted, setReviewPosted] = useState(false)
 
 	const router = useRouter()
 
@@ -200,20 +209,6 @@ const ProposalDetail = ({info}) => {
 							<div style={styles.title}>
 								{info.tokens[0].name}
 							</div>
-							<div style={styles.subtitle}>
-								{'0 people have voted'}
-							</div>
-						</div>
-						<div>
-							<div style={styles.statusWrapper}>
-								<span style={styles.statusPrefix}>
-									{'Ends in '}
-								</span>
-								<span style={styles.status}>
-									{/* TODO: */}
-									{'36 hours'}
-								</span>
-							</div>
 						</div>
 
 					</Row>
@@ -258,7 +253,7 @@ const ProposalDetail = ({info}) => {
 							</div>
 							<div style={styles.card2Text}>
 								Twitter Mentions
-							</div>							
+							</div>
 						</Col>
 						<Col span={8} style={styles.card2}>
 							<div style={styles.card2Title}>
@@ -266,7 +261,7 @@ const ProposalDetail = ({info}) => {
 							</div>
 							<div style={styles.card2Text}>
 								Discord Members
-							</div>							
+							</div>
 						</Col>
 					</Row>
 					<div style={styles.section}>Similar Collections (with similar tags)</div>
@@ -304,9 +299,12 @@ const ProposalDetail = ({info}) => {
 									<Input.TextArea rows={6} placeholder='Leave a Comment'/>
 								</Form.Item>
 								<Form.Item>
-									<Button onClick={submitVote} style={styles.button} htmlType="submit">
-										Submit
-									</Button>
+									{reviewPosted ? (<Button onClick={() => setReviewPosted(!reviewPosted)} style={styles.disabledbutton} htmlType="submit" disabled={reviewPosted}>
+										Thanks for submitting your review
+									</Button>) : (<Button onClick={() => setReviewPosted(!reviewPosted)} style={styles.button} htmlType="submit" disabled={reviewPosted}>
+										 Submit
+									</Button>)}
+
 								</Form.Item>
 							</Card>
 						</Form>
@@ -322,7 +320,7 @@ const dummyData = {
 	collectionName: 'Allen Frens',
 	status: 'Launching in 35 hours',
 	numberOfVotedPeople: '3781',
-	description: 'Blah Blah Blah',
+	description: 'If you are a member of NFTopia, we invite you to leverage the information we provided, and review this collection to earn',
 	keyPeople: [
 		{
 			name: 'Person 1'

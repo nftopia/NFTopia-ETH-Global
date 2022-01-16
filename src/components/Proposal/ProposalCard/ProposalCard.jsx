@@ -94,17 +94,6 @@ const ProposalCard = ({title, desc, img, openProposal}) => {
 						<div style={styles.title}>{title}</div>
 						<div style={styles.subtitle}>{'9,999 NFTs'}</div>
 					</Col>
-					<Col span={6} offset={12}>
-						<div style={styles.statusWrapper}>
-							<span style={styles.statusPrefix}>
-								{'Ends in '}
-							</span>
-							<span style={styles.status}>
-								{/* TODO: */}
-								{'36 hours'}
-							</span>
-						</div>
-					</Col>
 				</Row>
 				<Row>
 					<div style={styles.desc}>

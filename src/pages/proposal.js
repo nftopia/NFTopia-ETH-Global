@@ -50,7 +50,7 @@ const Proposal = () => {
 
 	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
 	const { upcomingProposal, inprogressProposal, endedProposal } = proposalData
-	const { proposalInfo } = useProposalDetail('0x275d553f426355c20b134D944B5b28D31CDb83DA')
+	const { proposalInfo } = useProposalDetail('0xDa1C6D6b5602e3480D57D0F49f5aEe6007542aA4')
 
 	return (
 		<>
@@ -79,7 +79,7 @@ const Proposal = () => {
                     		</TabPane>
                     		<TabPane tab="Ended" key="3">
                     			<Row gutter={[32, 24]} justify='center'>
-                    				{endedProposal.map((proposal)=> (
+                    				{upcomingProposal.map((proposal)=> (
                     					<Col span={8} key={proposal.title} >
                     						{/* TODO: Title may not be unique */}
                     						<ProposalCard title={proposal.title} desc={proposal.desc} img={proposal.img} openProposal={setSelectedProposal} />
@@ -92,7 +92,7 @@ const Proposal = () => {
 				{selectedProposal !== 'explore' &&
                 <>
                 	<Row justify='center'>
-				    	<img style={styles.cover} src="/assets/homepagecollection1.png"></img>
+				    	<img style={styles.cover} src="/assets/collectionCover.png"></img>
 			        </Row>
                 	<div style={styles.wrapper}>
                 		<ProposalDetail info={proposalInfo}/>
@@ -109,48 +109,18 @@ const proposalData = {
 	upcomingProposal: [
 		{
 			title: 'Proposal 1',
-			des: 'Proposal 1 Desc',
-			img: '/assets//homepagecollection1.png'
+			des: 'Review for Test Mage',
+			img: 'https://lh3.googleusercontent.com/BWCni9INm--eqCK800BbRkL10zGyflxfPwTHt4XphMSWG3XZvPx1JyGdfU9vSor8K046DJg-Q8Y4ioUlWHiCZqgR_L00w4vcbA-w=s0'
 		},
 		{
 			title: 'Proposal 2',
-			des: 'Proposal 2 Desc',
-			img: '/assets//homepagecollection2.png'
+			des: 'Review for Pixel Show',
+			img: 'https://ipfs.moralis.io:2053/ipfs/QmfLbpeVHxReWKNLaXTPcWiafi49eoAL4gRwMGuXtx2Eqe/images/14.png'
 		},
 		{
 			title: 'Proposal 3',
-			des: 'Proposal 1 Desc',
-			img: '/assets//homepagecollection3.png'
-		},
-		{
-			title: 'Proposal 4',
-			des: 'Proposal 1 Desc',
-			img: '/assets//homepagecollection1.png'
-		},
-		{
-			title: 'Proposal 5',
-			des: 'Proposal 2 Desc',
-			img: '/assets//homepagecollection2.png'
-		},
-		{
-			title: 'Proposal 6',
-			des: 'Proposal 1 Desc',
-			img: '/assets//homepagecollection3.png'
-		},
-		{
-			title: 'Proposal 7',
-			des: 'Proposal 1 Desc',
-			img: '/assets//homepagecollection1.png'
-		},
-		{
-			title: 'Proposal 8',
-			des: 'Proposal 2 Desc',
-			img: '/assets//homepagecollection2.png'
-		},
-		{
-			title: 'Proposal 9',
-			des: 'Proposal 1 Desc',
-			img: '/assets//homepagecollection3.png'
+			des: 'Review for NFTopia Membership',
+			img: '/assets/collectionLogo.png'
 		},
 	],
 	inprogressProposal: [

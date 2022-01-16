@@ -27,7 +27,7 @@ export const useCollectionStats = (addr) => {
 
 	const [fetchStatsSuccess, setFetchStatsSuccess] = useState(true)
 
-	const noveltyScore = 2.5
+	const noveltyScore = 7.5
 
 	// const fetchCollectionStats = async () => ({data, noveltyScore})
 	const fetchCollectionStats = async () => {

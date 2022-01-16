@@ -77,7 +77,7 @@ const CollectionBanner = ({NFTTokenIds, totalNFTs, stats, fallbackImg}) => {
 					<div>
 						<div style={styles.title}>{`${NFTTokenIds[0]?.name}`}</div>
 						<div
-							style={styles.subtitle} 
+							style={styles.subtitle}
 						> Joined December 2021</div>
 					</div>
 				</Row>
@@ -96,7 +96,7 @@ const CollectionBanner = ({NFTTokenIds, totalNFTs, stats, fallbackImg}) => {
 							Community Rating
 						</div>
 						<div style={styles.statsNumber}>
-							<Rate style={styles.rate} disabled defaultValue={4.5} value={stats?.rating}/>
+							<Rate style={styles.rate} disabled defaultValue={4.5} value={5}/>
 						</div>
 					</div>
 					<Divider style={styles.divider} type="vertical" />
@@ -114,7 +114,7 @@ const CollectionBanner = ({NFTTokenIds, totalNFTs, stats, fallbackImg}) => {
 							Owner Count
 						</div>
 						<div style={styles.statsNumber}>
-							{stats?.owners}
+							1
 						</div>
 					</div>
 				</Row>

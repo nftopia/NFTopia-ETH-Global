@@ -74,12 +74,12 @@ const CollectionCard = ({ setInputValue, nft, fallbackImg}) => {
 			<Row>
 				<Col span={10}>
 					<div style={styles.subtitle}>Novelty Score</div>
-					<div style={styles.novelty}>8.7</div>
+					<div style={styles.novelty}>{nft?.novelty}</div>
 				</Col>
 				<Divider style={styles.divider} type="vertical" />
 				<Col span={12}>
 					<div style={styles.subtitle}>Community Rating</div>
-					<Rate style={styles.rate} disabled defaultValue={4.5} value={4.5} />				</Col>
+					<Rate style={styles.rate} disabled defaultValue={0} value={0} />				</Col>
 			</Row>
 			<Row justify='center'>
 				<Button style={styles.button}
@@ -89,5 +89,20 @@ const CollectionCard = ({ setInputValue, nft, fallbackImg}) => {
 		</Card>
 	)
 }
+
+const upcomingProposal = [
+	{
+		novelty: '2.5',
+		rating: 0
+	},
+	{
+		novelty: '3.6',
+		rating: 0
+	},
+	{
+		novelty: '2.5',
+		rating: 0
+	},
+]
 
 export default CollectionCard
