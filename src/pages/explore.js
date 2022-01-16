@@ -32,6 +32,10 @@ const styles = {
 	},
 	NFTs: {
 		marginTop: '12px'
+	},
+	collection: {
+		marginRight: '42px',
+		marginBottom: '42px'
 	}
 }
 
@@ -202,9 +206,10 @@ export default function NFTMarketplace() {
 								<TabPane tab="Trending" key="1">
 									<Row style={styles.NFTs}>
 										{NFTCollections?.map((nft, index) => (
-											<Col span={6} key={index}>
+											<div style={styles.collection} key={index} >
 												<CollectionCard setInputValue={setInputValue} nft={nft} fallbackImg={fallbackImg} />
-											</Col>
+											</div>
+
 										))}
 									</Row>
 								</TabPane>

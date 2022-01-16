@@ -40,7 +40,7 @@ function MenuItems() {
 				</Link>
 			</Menu.Item>
 			<Menu.Item key="/create-proposal">
-				<Link href="/create-proposal" className="mr-6">
+				<Link style={{color: 'black'}} href="/create-proposal" className="mr-6">
 					CreateProposal
 				</Link>
 			</Menu.Item>
