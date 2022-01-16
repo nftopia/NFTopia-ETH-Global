@@ -48,6 +48,7 @@ const Proposal = () => {
 	// const { proposals } = useProposals()
 	// const { proposalInfo } = useProposalDetail()
 	const { proposals, inputProposalPair: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
+	console.log(proposals)
 	// console.log('2')
 	// console.log(selectedProposal)
 	// useEffect(() => {
@@ -62,53 +63,52 @@ const Proposal = () => {
 	return (
 		<>
 			<div>
-				{selectedProposal === 'explore' &&
-                    <div style={styles.wrapper}>
-                    	<div style={styles.title}>Review to Earn</div>
-                    	<Tabs style={styles.tab} defaultActiveKey='1' centered onChange={onTabChange}>
-                    		<TabPane  tab="Upcoming" key="1">
-                    			<Row gutter={[32, 24]} justify='center'>
-														{proposals.map((proposal)=> (
-                    					<Col span={8} key={proposal.proposal_id} >
-                    						{/* TODO: Title may not be unique */}
-                    						<ProposalCard proposal={proposal} openProposal={setSelectedProposal}/>
-                    					</Col>
-                    				))}
-                    			</Row>
-                    		</TabPane>
-                    		<TabPane tab="In Progress" key="2">
-                    			<Row gutter={[32, 24]} justify='center'>
-														{proposals.map((proposal)=> (
-                    					<Col span={8} key={proposal.proposal_id} >
-                    						{/* TODO: Title may not be unique */}
-                    						<ProposalCard proposal={proposal} openProposal={setSelectedProposal}/>
-                    					</Col>
-                    				))}
-                    			</Row>
-                    		</TabPane>
-                    		<TabPane tab="Ended" key="3">
-                    			<Row gutter={[32, 24]} justify='center'>
-                    				{proposals.map((proposal)=> (
-                    					<Col span={8} key={proposal.proposal_id} >
-                    						{/* TODO: Title may not be unique */}
-                    						<ProposalCard proposal={proposal} openProposal={setSelectedProposal}/>
-                    					</Col>
-                    				))}
-                    			</Row>
-                    		</TabPane>
-                    	</Tabs>
-                    </div>}
-				{selectedProposal !== 'explore' &&
-                <>
-                	<Row justify='center'>
-				    	<img style={styles.cover} src="/assets/homepagecollection1.png"></img>
-			        </Row>
-                	<div style={styles.wrapper}>
-                		<ProposalDetail info={proposalInfo}/>
-
-                	</div>
-                </>
-				}
+				{selectedProposal === 'explore' ?
+					<>
+						<div style={styles.wrapper}>
+							<div style={styles.title}>Review to Earn</div>
+							<Tabs style={styles.tab} defaultActiveKey='1' centered onChange={onTabChange}>
+								<TabPane  tab="Upcoming" key="1">
+									<Row gutter={[32, 24]} justify='center'>
+										{proposals?.map((proposal, index)=> (
+											<div span={8} key={index} >
+												<ProposalCard proposal={proposal} openProposal={setSelectedProposal}/>
+											</div>
+										))}
+									</Row>
+								</TabPane>
+								<TabPane tab="In Progress" key="2">
+									<Row gutter={[32, 24]} justify='center'>
+										{proposals?.map((proposal)=> (
+											<Col span={8} key={proposal.proposal_id} >
+												{/* TODO: Title may not be unique */}
+												<ProposalCard proposal={proposal} openProposal={setSelectedProposal}/>
+											</Col>
+										))}
+									</Row>
+								</TabPane>
+								<TabPane tab="Ended" key="3">
+									<Row gutter={[32, 24]} justify='center'>
+										{proposals?.map((proposal)=> (
+											<Col span={8} key={proposal.proposal_id} >
+												{/* TODO: Title may not be unique */}
+												<ProposalCard proposal={proposal} openProposal={setSelectedProposal}/>
+											</Col>
+										))}
+									</Row>
+								</TabPane>
+							</Tabs>
+						</div>
+					</>
+					:
+					<>
+						<Row justify='center'>
+							<img style={styles.cover} src="/assets/homepagecollection1.png"></img>
+						</Row>
+						<div style={styles.wrapper}>
+							<ProposalDetail info={proposalInfo}/>
+						</div>
+					</>}
 			</div>
 		</>
 	)

@@ -54,7 +54,7 @@ const styles = {
 	}
 }
 // eslint-disable-next-line no-unused-vars
-const ProposalCard = ({proposoal, openProposal}) => {
+const ProposalCard = ({proposal, openProposal}) => {
 	// eslint-disable-next-line no-unused-vars
 	// const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
 	// const [loading, setLoading] = useState(true)
@@ -77,13 +77,13 @@ const ProposalCard = ({proposoal, openProposal}) => {
 					<img
 						height="110"
 						alt="example"
-						src={proposoal?.collection_img}
+						src={proposal?.collection_img}
 					/>
 				}
 			>
 				<Row>
 					<Col span={6}>
-						<div style={styles.title}>{proposoal?.collection_name}</div>
+						<div style={styles.title}>{proposal?.collection_name}</div>
 						<div style={styles.subtitle}>{'9,999 NFTs'}</div>
 					</Col>
 					<Col span={6} offset={12}>
@@ -100,12 +100,12 @@ const ProposalCard = ({proposoal, openProposal}) => {
 				</Row>
 				<Row>
 					<div style={styles.desc}>
-						{proposoal?.description}
+						{proposal?.description}
 					</div>
 				</Row>
 				<Row justify='center'>
 					<Button style={styles.button}
-						onClick={() => {openProposal(proposoal?.collection)}}
+						onClick={() => {openProposal(proposal?.collection)}}
 					>Enter</Button>
 				</Row>
 			</Card>
