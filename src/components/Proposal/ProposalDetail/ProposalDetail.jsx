@@ -7,9 +7,9 @@ import { useRouter } from 'next/router'
 import Web3Modal from 'web3modal'
 import { useMoralis } from 'react-moralis'
 
-import { mumbaiGovernorAddress } from '../../config'
+import { mumbaiGovernorAddress } from '../../../../config'
 
-import Governor from '../../artifacts/contracts/PricerGovernor.sol/PricerGovernor.json'
+import Governor from '../../../../artifacts/contracts/PricerGovernor.sol/PricerGovernor.json'
 
 const { Meta } = Card
 const layout = {
@@ -18,7 +18,7 @@ const layout = {
 }
 
 const onFinish = (values) => {
-	alert(values)
+	console.log("finish")
 }
 
 const validateMessages = {
@@ -32,48 +32,52 @@ const validateMessages = {
 	},
 }
 
-const [formInput, updateFormInput] = useState({ rating: 0, review: '' })
-const router = useRouter()
-
-
-async function submitVote() {
-
-	const { rating, review } = formInput
-	if (rating === 0) return
-
-	console.log(rating)
-	console.log(review)
-
-	const web3Modal = new Web3Modal()
-	const connection = await web3Modal.connect()
-	const provider = new ethers.providers.Web3Provider(connection)
-	const signer = provider.getSigner()
-
-	const governorContract = new ethers.Contract(mumbaiGovernorAddress, Governor.abi, signer)
-
-	const tx = await governorContract.castVoteWithReason(pid, rating-1, review)
-
-	governorContract.on("VoteCast", (voter, proposalId, support, weight, reason) => {
-			console.log("This voter has voted: " + voter);
-			const Review = Moralis.Object.extend("Reviews");
-			const review = new Review();
-
-			review.set("proposal_id", proposalId);
-			review.set("voter", voter);
-			review.set("rating", support+1);
-			review.set("weight", weight);
-			review.set("review", reason);
-
-			review.save();
-			console.log("Back to home page")
-
-			router.push('/')
-	});
-
-	console.log("end")
-}
-
 const ProposalDetail = ({info}) => {
+
+	const [currentRating, setCurrentRating] = useState(0)
+	const [currentReview, setCurrentReview] = useState("review to earn is pretty awesome!")
+
+	const router = useRouter()
+
+
+
+
+	async function submitVote() {
+
+		if (currentRating === 0) return
+
+		console.log(currentRating)
+		console.log(currentReview)
+
+		const web3Modal = new Web3Modal()
+		const connection = await web3Modal.connect()
+		const provider = new ethers.providers.Web3Provider(connection)
+		const signer = provider.getSigner()
+
+		const governorContract = new ethers.Contract(mumbaiGovernorAddress, Governor.abi, signer)
+
+		// const tx = await governorContract.castVoteWithReason(pid, rating-1, review)
+		//
+		// governorContract.on("VoteCast", (voter, proposalId, support, weight, reason) => {
+		// 		console.log("This voter has voted: " + voter);
+		// 		const Review = Moralis.Object.extend("Reviews");
+		// 		const review = new Review();
+		//
+		// 		review.set("proposal_id", proposalId);
+		// 		review.set("voter", voter);
+		// 		review.set("rating", support+1);
+		// 		review.set("weight", weight);
+		// 		review.set("review", reason);
+		//
+		// 		review.save();
+		// 		console.log("Back to home page")
+		//
+		// 		router.push('/')
+		// });
+
+		console.log("end")
+	}
+
 
 	return (
 		<>
@@ -83,17 +87,15 @@ const ProposalDetail = ({info}) => {
 			<Row>
 				<Col span={13}>
 					<Row>
-						<Col span={4}>
+						<Col span={8}>
 							<h1>
-								{dummyData.collectionName}
+								{info.tokens[0].name}
 							</h1>
 							<h3>
-								{`${dummyData.numberOfVotedPeople} people have voted`}
+								{`0 people have voted`}
 							</h3>
 						</Col>
-						<Col span={4} offset={16}>
-							<div>Ends in 36 hours</div>
-						</Col>
+
 					</Row>
 					<Row>
 						<Col span={12}>
@@ -108,7 +110,7 @@ const ProposalDetail = ({info}) => {
 						</Col>
 					</Row>
 					<Row>
-						<Col span={24}><h1>About</h1></Col>
+						<Col span={24}><h1>Description</h1></Col>
 						<Col><h4>
 							{dummyData.description}
 						</h4></Col>
@@ -131,22 +133,9 @@ const ProposalDetail = ({info}) => {
 							</Card>
 						</Col>
 					</Row>
-					<Row>
-						<Col span={24}><h1>Key People</h1></Col>
-						<Avatar.Group
-							maxCount={5}
-							maxPopoverTrigger="click"
-							size="large"
-							maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf', cursor: 'pointer' }}
-						>
-							{dummyData.keyPeople.map((people)=>(
-								<Meta key={people.name} avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />} title={`${people.name}`} />
-							))}
 
-						</Avatar.Group>
-					</Row>
 					<Row>
-						<Col span={24}><h1>Similar Collections(2)</h1></Col>
+						<Col span={24}><h1>Similar Collections (with similar tags)</h1></Col>
 						{dummyData.similarCollections.map((collection)=> (
 							<Image
 								key={collection.name}
@@ -170,7 +159,9 @@ const ProposalDetail = ({info}) => {
 						<Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
 							<Card title="My Reviews" style={{ width: 500 }}>
 								<Form.Item>
-									<Rate />
+									<Rate onChange={(value) => {
+						        setCurrentRating(value)
+						      }} value={currentRating}/>
 								</Form.Item>
 								<Form.Item>
 									<Input.TextArea placeholder='Leave a Comment'/>
@@ -217,12 +208,12 @@ const dummyData = {
 	myReviews: '',
 	similarCollections: [
 		{
-			name: 'Doodles',
-			img: 'https://pbs.twimg.com/tweet_video_thumb/FI65UrdUcAQSKtd.jpg'
+			name: 'LinksDAO',
+			img: 'https://lh3.googleusercontent.com/4flXT3VrXYC63isfk78Ki3UbDA4tALcMgYCTelqq5n8Z3rQr_Nl_Q1a3NroC6bCDRQ0YDHpkJMHmIXcCcuAmtkenRUuECs8eKD2Ka-0=s0'
 		},
 		{
-			name: 'Cool Cats',
-			img: 'https://lh3.googleusercontent.com/Alhv4pn_L805OaXdAychKVSm1O6C619mSuNJOtuXRFNfNzHnZ8SJBm2yHAylgfkh4xe-jgZtdCdQI3sxzew6fZGOscbHytW5-EEHLw=w600'
+			name: 'Art Blocks',
+			img: 'https://lh3.googleusercontent.com/UZ7MU-BYcbR7xZ37WMwcr9_-XMgg2bhHu7jU5tOTRpfi3b4LnE3YzZVU4WdMOcnOtHIOKz0Md9bhz8BzrmLdJSvus-TZockc-eTNyA=s0'
 		}
 	]
 
