@@ -2,14 +2,11 @@
 import { Image, Row, Divider, Rate } from 'antd'
 
 const styles = {
-	cover: {
-		width: '100%',
-		height: '350px',
-	},
 	banner: {
 
 	},
 	title: {
+		marginTop: '30px',
 		fontWeight: 'bold',
 		fontSize: '32px',
 		lineHeight: '38px',

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Row, Card, Col, Avatar, Image, Rate, Button, Form, Input } from 'antd'
 import NFTCarousel from '../../Carousel'
 
@@ -18,7 +19,7 @@ const layout = {
 }
 
 const onFinish = (values) => {
-	console.log("finish")
+	console.log('finish')
 }
 
 const validateMessages = {
@@ -35,7 +36,7 @@ const validateMessages = {
 const ProposalDetail = ({info}) => {
 
 	const [currentRating, setCurrentRating] = useState(0)
-	const [currentReview, setCurrentReview] = useState("review to earn is pretty awesome!")
+	const [currentReview, setCurrentReview] = useState('review to earn is pretty awesome!')
 
 	const router = useRouter()
 
@@ -75,7 +76,7 @@ const ProposalDetail = ({info}) => {
 		// 		router.push('/')
 		// });
 
-		console.log("end")
+		console.log('end')
 	}
 
 
@@ -92,7 +93,7 @@ const ProposalDetail = ({info}) => {
 								{info.tokens[0].name}
 							</h1>
 							<h3>
-								{`0 people have voted`}
+								{'0 people have voted'}
 							</h3>
 						</Col>
 

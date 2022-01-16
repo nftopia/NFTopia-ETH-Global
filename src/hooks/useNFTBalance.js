@@ -56,5 +56,5 @@ export const useNFTBalance = (options) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data])
 
-	return { getNFTBalance, NFTBalance, fetchSuccess, error, isLoading }
+	return { getNFTBalance, NFTBalance, fetchSuccess, walletAddress, error, isLoading }
 }

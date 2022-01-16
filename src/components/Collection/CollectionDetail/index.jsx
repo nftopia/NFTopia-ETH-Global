@@ -12,7 +12,7 @@ const styles = {
 		borderRadius: '15.38px'
 	},
 	card: {
-		width: '162px'
+		marginRight: '20px'
 	}
 }
 
@@ -29,6 +29,7 @@ const CollectionDetail = ({NFTTokenIds, chainId, handleBuyClick, getMarketItem, 
 							>
 								<Card
 									bordered={false}
+									bodyStyle={{padding: '12px 0'}}
 									// actions={[
 									// 	<Tooltip title="View On Blockexplorer" key={index}>
 									// 		<Button

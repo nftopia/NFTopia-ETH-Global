@@ -28,7 +28,8 @@ const styles = {
 	},
 	cover: {
 		height: '350px',
-		width: '100%'
+		width: '100%',
+		marginTop: '60px'
 	},
 	NFTs: {
 		marginTop: '12px'

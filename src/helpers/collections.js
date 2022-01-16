@@ -15,7 +15,7 @@ export const networkCollections = {
 	  },
 	  {
 		  image:
-		  'https://emerging-europe.com/wp-content/uploads/2021/08/nft-1320x742.jpeg',
+		  '/assets/collectionLogo.png',
 		  name: 'NFTopia Membership',
 		  addrs: '0xDa1C6D6b5602e3480D57D0F49f5aEe6007542aA4',
 	  }
