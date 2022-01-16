@@ -26,12 +26,12 @@ const styles = {
 
 export default function CreateProposal() {
   const { web3, Moralis, user } = useMoralis()
-	const [formInput, updateFormInput] = useState({ address: '', description: '' })
+	const [formInput, updateFormInput] = useState({ address: '', description: '', collectionName: '', collectionImg:'', noveltyScore:'0', aiTag:'None'})
 	const router = useRouter()
 
 
 	async function createCollectionProposal() {
-		const { address, description } = formInput
+		const { address, description, collectionName, collectionImg, noveltyScore, aiTag } = formInput
 		if (!address || !description) return
 
     const web3Modal = new Web3Modal()
@@ -64,6 +64,8 @@ export default function CreateProposal() {
         proposal.set("proposal_description", description);
         proposal.set("proposal_state", "");
         proposal.set("proposal_rating", 0);
+        proposal.set("collection_image", collectionImg);
+        proposal.set("collection_name", collectionName);
 
         proposal.save();
     });
@@ -72,8 +74,8 @@ export default function CreateProposal() {
     const collection = new Collection();
 
     collection.set("collection_address", address);
-    collection.set("nolvety_score", "7.5");
-    collection.set("ai_tag", "sketch");
+    collection.set("nolvety_score", noveltyScore);
+    collection.set("ai_tag", aiTag);
 
     collection.save();
 
@@ -93,6 +95,26 @@ export default function CreateProposal() {
 					className="mt-2 border rounded p-4"
 					onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
 				/>
+        <textarea
+          placeholder="CollectionName"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, collectionName: e.target.value })}
+        />
+        <textarea
+          placeholder="CollectionImg"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, collectionImg: e.target.value })}
+        />
+        <textarea
+          placeholder="Novelty Score"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, noveltyScore: e.target.value })}
+        />
+        <textarea
+          placeholder="AI Tag"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, aiTag: e.target.value })}
+        />
 				<button onClick={createCollectionProposal} className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg">
           Create Proposal
 				</button>

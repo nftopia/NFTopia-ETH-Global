@@ -5,6 +5,7 @@ import Logo from '../components/Logo'
 import Account from '../components/Account'
 import SearchCollections from '../components/SearchCollections'
 import { StoreProvider } from '../utils/store'
+import { ProposalProvider } from '../components/Proposal/ProposalContext'
 import MenuItems from '../components/MenuItems'
 import '../styles/antd.less'
 
@@ -15,8 +16,8 @@ import { MoralisDappProvider } from '../providers/MoralisDappProvider/MoralisDap
 
 const { Header, Footer } = Layout
 const styles = {
-	layout: { 
-		height: '100vh', 
+	layout: {
+		height: '100vh',
 		overflow: 'auto',
 		background: 'white',
 	},
@@ -85,29 +86,33 @@ function MyApp({ Component, pageProps }) {
 					<MoralisProvider appId={APP_ID} serverUrl={SERVER_URL}>
 						<MoralisDappProvider>
 							<StoreProvider>
-								<Header style={styles.header}>
-									<Logo />
-									<SearchCollections />
-									<MenuItems />
-									<div style={styles.headerRight}>
-										<Button style={styles.reviewButton}>
-											<Link href="/proposal">
-										Review to Earn
-											</Link>
-										</Button>
-										<Button style={styles.claimButton}>
-											<Link href="/reward">
-										Claim Rewards
-											</Link>
-										</Button>
-										{/* <Chains /> */}
-										{/* <NativeBalance /> */}
-										<Account />
+
+									<Header style={styles.header}>
+										<Logo />
+										<SearchCollections />
+										<MenuItems />
+										<div style={styles.headerRight}>
+											<Button style={styles.reviewButton}>
+												<Link href="/proposal">
+											Review to Earn
+												</Link>
+											</Button>
+											<Button style={styles.claimButton}>
+												<Link href="/reward">
+											Claim Rewards
+												</Link>
+											</Button>
+											{/* <Chains /> */}
+											{/* <NativeBalance /> */}
+											<Account />
+										</div>
+									</Header>
+									<div style={styles.content}>
+										<ProposalProvider>
+											<Component {...pageProps} />
+										</ProposalProvider>
 									</div>
-								</Header>
-								<div style={styles.content}>
-									<Component {...pageProps} />
-								</div>
+
 							</StoreProvider>
 						</MoralisDappProvider>
 					</MoralisProvider>

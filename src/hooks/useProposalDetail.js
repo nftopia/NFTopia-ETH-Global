@@ -19,7 +19,6 @@ export const useProposalDetail = (addr) => {
   const { resolveLink } = useIPFS()
 
   const [proposalInfo, setProposalInfo] = useState({})
-
   const {
 		fetch: getNFTTokenIds,
 		data,
@@ -53,6 +52,8 @@ export const useProposalDetail = (addr) => {
           }
         }
       }
+
+      console.log("so far so good")
 
       const query = new Moralis.Query("Collections")
       query.equalTo("collection_address", addr);
@@ -96,8 +97,10 @@ export const useProposalDetail = (addr) => {
   }
 
 	useEffect(() => {
+    console.log(addr)
     if(addr !== 'explore')
     {
+      console.log("called into it")
       fetchProposalInfo().then(response => {
         console.log(response)
         setProposalInfo({
@@ -107,7 +110,7 @@ export const useProposalDetail = (addr) => {
       })
     }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data, addr])
+	}, [addr])
 
 	return { proposalInfo, error, isLoading }
 }

@@ -6,7 +6,7 @@ import { Card, Tooltip, Row, Col, Button } from 'antd'
 
 const styles = {
 	card: {
-		margin: '8px',
+		margin: '8px'
 	},
 	cardContent: {
 		height: 200
@@ -28,7 +28,8 @@ const styles = {
 		fontSzie: '14px',
 		color: '#8C939A',
 		lineHeight: '17px',
-		marginBottom: '31px'
+		marginBottom: '31px',
+		width: '100%'
 	},
 	statusWrapper: {
 		background:' #F5F5F5',
@@ -51,10 +52,14 @@ const styles = {
 		width: '90%',
 		borderRadius: '10px',
 		height: '40px'
+	},
+	images: {
+		height: '100px',
+		width: '100%'
 	}
 }
 // eslint-disable-next-line no-unused-vars
-const ProposalCard = ({title, desc, img, openProposal}) => {
+const ProposalCard = ({title, desc, img, collection, openProposal}) => {
 	// eslint-disable-next-line no-unused-vars
 	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
 	const [loading, setLoading] = useState(true)
@@ -74,8 +79,7 @@ const ProposalCard = ({title, desc, img, openProposal}) => {
 					styles.cardContent
 				}
 				cover={
-					<img
-						height="110"
+					<img style={styles.images}
 						alt="example"
 						src={img}
 					/>
@@ -84,31 +88,20 @@ const ProposalCard = ({title, desc, img, openProposal}) => {
 					<Tooltip title="Review Collection" key="enter">
 						<Button
 							style={styles.enterButton}
-							type="primary" onClick={() => {router.push('/proposal');openProposal(title)}}
+							type="primary" onClick={() => {router.push('/proposal');openProposal(collection)}}
 						>Enter</Button>
 					</Tooltip>,
 				]}
 			>
 				<Row>
-					<Col span={6}>
+					<Col span={8}>
 						<div style={styles.title}>{title}</div>
-						<div style={styles.subtitle}>{'9,999 NFTs'}</div>
 					</Col>
-					<Col span={6} offset={12}>
-						<div style={styles.statusWrapper}>
-							<span style={styles.statusPrefix}>
-								{'Ends in '}
-							</span>
-							<span style={styles.status}>
-								{/* TODO: */}
-								{'36 hours'}
-							</span>
-						</div>
-					</Col>
+
 				</Row>
 				<Row>
 					<div style={styles.desc}>
-						{'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.'}
+						{desc}
 					</div>
 				</Row>
 			</Card>

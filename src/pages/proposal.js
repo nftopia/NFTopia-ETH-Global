@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useContext } from 'react'
 import StoreContext from '../utils/store'
+import ProposalContext from '../components/Proposal/ProposalContext'
 import ProposalCard from '../components/Proposal/ProposalCard/ProposalCard'
 import {Row, Col, Tabs } from 'antd'
 import ProposalDetail from '../components/Proposal/ProposalDetail/ProposalDetail'
@@ -44,8 +45,18 @@ const Proposal = () => {
 	// const { proposals } = useProposals()
 
 	const { selectedProposal: [selectedProposal, setSelectedProposal]} = useContext(StoreContext)
+	const { proposals } = useContext(ProposalContext)
+	console.log(proposals)
+
 	const { upcomingProposal, inprogressProposal, endedProposal } = proposalData
 	const { proposalInfo } = useProposalDetail('0x275d553f426355c20b134D944B5b28D31CDb83DA')
+	console.log("YEAH")
+	console.log(proposalInfo)
+	// console.log("YEAH")
+	// console.log(selectedProposal)
+	// const { proposalInfo } = useProposalDetail(selectedProposal)
+	// console.log("Yuguan")
+	// console.log(proposalInfo)
 
 	return (
 		<>
@@ -74,10 +85,10 @@ const Proposal = () => {
                     		</TabPane>
                     		<TabPane tab="Ended" key="3">
                     			<Row gutter={[32, 24]} justify='center'>
-                    				{endedProposal.map((proposal)=> (
-                    					<Col span={8} key={proposal.title} >
+                    				{proposals.map((proposal)=> (
+                    					<Col span={8} key={proposal.proposal_id} >
                     						{/* TODO: Title may not be unique */}
-                    						<ProposalCard title={proposal.title} desc={proposal.desc} img={proposal.img} openProposal={setSelectedProposal} />
+                    						<ProposalCard title={proposal.collection_name} desc={proposal.description} img={proposal.collection_img} collection={proposal.collection} openProposal={setSelectedProposal} />
                     					</Col>
                     				))}
                     			</Row>
