@@ -100,8 +100,7 @@ const Home = () => {
 									style={styles.collectionItem}
 									height={200}
 									src={item.image}
-									fallback={'https://nftopia-public.s3.amazonaws.com/demo/image/collectionLogo.png'}
-									alt=""
+									alt="https://nftopia-public.s3.amazonaws.com/demo/image/collectionLogo.png"
 								/>
 							</Item>
 						)}
@@ -127,7 +126,7 @@ const data = [
 	{
 		title: 'Proposal 3',
 		des: 'Proposal 1 Desc',
-		img: '/assets/homepagecollection3.png'
+		img: 'https://nftopia-public.s3.amazonaws.com/demo/image/collectionLogo.png'
 	},
 ]
 
