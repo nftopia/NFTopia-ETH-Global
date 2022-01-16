@@ -6,7 +6,7 @@ import {
 	useMoralis,
 	useMoralisQuery,
 } from 'react-moralis'
-import { Modal, Badge, Alert, Spin, Row, Col, Tabs} from 'antd'
+import { Modal, Badge, Alert, Spin, Row, Tabs} from 'antd'
 import { useNFTTokenIds } from '../hooks/useNFTTokenIds'
 import { CollectionBanner, CollectionCard, CollectionDetail } from '../components/Collection'
 import { useMoralisDapp } from '../providers/MoralisDappProvider/MoralisDappProvider'
