@@ -10,7 +10,11 @@ contract NFTopia721Token is ERC721Votes {
   constructor(string memory name, string memory symbol)
     ERC721(name, symbol)
     EIP712(name, '1')
-  {}
+  {
+    _tokenIds.increment();
+    uint256 newItemId = _tokenIds.current();
+    _mint(msg.sender, newItemId);
+  }
 
   function createToken(string memory tokenURI) public returns (uint256) {
     _tokenIds.increment();

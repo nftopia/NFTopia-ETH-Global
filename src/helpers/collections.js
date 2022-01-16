@@ -17,7 +17,7 @@ export const networkCollections = {
 		  image:
 		  '/assets/collectionLogo.png',
 		  name: 'NFTopia Membership',
-		  addrs: '0xDa1C6D6b5602e3480D57D0F49f5aEe6007542aA4',
+		  addrs: '0x00044315548176c79b3f1f3e148c3ee483d4a5b7',
 	  }
 	],
 

@@ -41,7 +41,11 @@ export default function CreateProposal() {
     const governorContract = new ethers.Contract(mumbaiGovernorAddress, Governor.abi, signer)
     const governanceTokenContract = new ethers.Contract(mumbaiGovernorTokenAddress, GovernanceToken.abi, signer)
     const marketContract = new ethers.Contract(mumbaiNFTMarketAddress, Market.abi, signer)
-
+    
+    console.log("current balance is: " + await governanceTokenContract.balanceOf(signer.getAddress()))
+    
+    await governanceTokenContract.delegate(signer.getAddress(), { from: signer.getAddress() });
+    
     console.log("current weight is: " + await governanceTokenContract.getVotes(signer.getAddress()))
 
     const calldata = marketContract.interface.encodeFunctionData('updateRating', [mumbaiNFTAddress, 1])

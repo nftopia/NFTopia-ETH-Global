@@ -24,18 +24,18 @@ async function main() {
 	// await nft.deployed()
 	// console.log('NFT deployed to:', nft.address)
 	//
-	// const VoteToken = await ethers.getContractFactory("PricerToken")
-	// const voteToken = await VoteToken.deploy()
+	// const VoteToken = await ethers.getContractFactory("NFTopia721Token")
+	// const voteToken = await VoteToken.deploy("NFTopia721Token", "NFTOP")
 	// await voteToken.deployed()
 	// const voteTokenAddress = voteToken.address
 	// console.log('vote token deployed to:', voteTokenAddress)
 	//
-	const Governor = await ethers.getContractFactory("PricerGovernor")
-	const governor = await Governor.deploy('0x77c716e37cC4904Ff35312362D667AF08bB6286E')
+	const Governor = await ethers.getContractFactory("NFTopiaGovernor")
+    const governor = await Governor.deploy("NFTopiaGovernor", "0x00044315548176c79b3f1f3e148c3ee483d4a5b7", 0, 100, 0)
 	await governor.deployed()
 	const governorAddress = governor.address
 	console.log('governor deployed to:', governorAddress)
-}
+ }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.

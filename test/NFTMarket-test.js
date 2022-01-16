@@ -75,12 +75,12 @@ describe("NFTMarket", function () {
     const accounts = await ethers.getSigners()
 
     const owner  = accounts[0].address
-    await voteToken.mint(owner, 1)
     await voteToken.mint(owner, 2)
     await voteToken.mint(owner, 3)
     await voteToken.mint(owner, 4)
     await voteToken.mint(owner, 5)
     await voteToken.mint(owner, 6)
+    await voteToken.mint(owner, 7)
 
     await voteToken.transferFrom(owner, accounts[1].address, 1)
     await voteToken.transferFrom(owner, accounts[2].address, 2)
