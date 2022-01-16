@@ -230,9 +230,9 @@ function NFTBalance() {
           			cover={
           				<Image
           					preview={false}
-          					src={nft?.image || 'error'}
-          					fallback={'/assets/nftopiaLogo'}
-          					alt=""
+          					src={nft?.image}
+          					fallback={'/assets/collectionLogo.png'}
+          					alt="/assets/collectionLogo.png"
           					style={styles.image}
           				/>
           			}
